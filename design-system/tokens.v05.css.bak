@@ -1,0 +1,331 @@
+/* ==========================================================================
+   TopLine Pro Construction — Seam & Slate v0.5
+   Camadas: primitivo -> semântico -> componente.
+
+   PROCEDÊNCIA
+   Cor .......... nossa. Amostrada pixel a pixel do logotipo. Intocada desde a v0.1.
+   Tema ......... nosso. Claro nas seções de conteúdo; escuro só em moldura de mídia.
+   Atmosfera .... nossa. Wash frio, grão de 3,2%, costura vertical.
+   Display ...... Ironwood. Cabinet Grotesk, caixa alta.
+   Texto ........ Habitate. Manrope 500, tracking de 0.02em.
+   Forma ........ Habitate. Escala de raio 999 / 24 / 20 / 12.
+   Ritmo ........ Habitate. Container 1400, gutter 64, seção 120/128.
+   Controle ..... Habitate. Pill de 52px com chip circular de 40px.
+   Vidro ........ Habitate. backdrop-filter em nav, painel e formulário.
+   Movimento .... Habitate. 900ms em cubic-bezier(.22,1,.36,1), cascata de 62ms.
+
+   O QUE MUDOU DA v0.4
+   O raio único de 4px foi aposentado. O corpo saiu da Geist para a Manrope.
+   Existe superfície escura: a moldura de mídia do herói, do formulário e do
+   CTA final. Ver "Ground" abaixo — é o único lugar onde escuro é permitido.
+   ========================================================================== */
+
+:root {
+  /* =========================================================================
+     1. PRIMITIVOS
+     ========================================================================= */
+
+  /* ---- Cor: inalterada. Ancorada no degradê do logotipo. ---- */
+  --blue-50:  #F2F8FD;
+  --blue-100: #DCEDF9;
+  --blue-200: #BCDCF3;
+  --blue-300: #9BCBEE;
+  --blue-400: #7BBDEC;  /* topo do degradê do logotipo */
+  --blue-500: #5A9BCE;
+  --blue-600: #3F7CAC;  /* meio do degradê */
+  --blue-700: #2F6088;
+  --blue-800: #254A6A;  /* base do degradê */
+  --blue-900: #16324A;
+
+  --silver-50:  #FAFBFC;
+  --silver-100: #F1F4F7;
+  --silver-200: #E4E9ED;
+  --silver-300: #CFD5DA;
+  --silver-400: #B2BAC1;
+  --silver-500: #8E979F;
+  --silver-600: #62707B;
+  --silver-700: #44525E;
+  --silver-800: #31373C;
+  --silver-900: #101922;
+
+  --white: #FFFFFF;
+  --copper-600: #9A5F32;   /* só emergência de inverno */
+  --green-600: #2E7D5B; --green-50: #ECF6F1;
+  --amber-600: #A8710F;  --amber-50: #FDF5E7;
+  --red-600:   #B23B3B;  --red-50:   #FBEDED;
+
+  /* Ground: o navy fotográfico da moldura de mídia. Mais escuro que o
+     --blue-900 porque ele vive atrás de foto, não atrás de texto de seção. */
+  --ink-950: #0C1B29;
+  --ink-900: #12283B;
+  --ink-scrim: 9, 20, 31;   /* componentes RGB, para montar scrim com alpha */
+
+  --gradient-brand: linear-gradient(160deg, var(--blue-400) 0%, var(--blue-800) 100%);
+  --gradient-metal: linear-gradient(160deg, #FFFFFF 0%, #DDE2E6 38%, #9BA3AA 62%, #EDF0F2 100%);
+
+  /* Atmosfera. Nenhuma superfície clara é branco chapado. */
+  --wash:  radial-gradient(120% 78% at 50% -12%, rgba(123,189,236,.16) 0%, rgba(123,189,236,0) 62%);
+  --seam:  repeating-linear-gradient(90deg, rgba(37,74,106,.055) 0 1px, transparent 1px 32px);
+  --seam-light: repeating-linear-gradient(90deg, rgba(255,255,255,.045) 0 1px, transparent 1px 34px);
+  --grain-opacity: .032;
+
+  /* ---- Tipografia ----
+     Display continua Cabinet Grotesk (Fontshare), com Archivo de reserva sob
+     CSP restrita. Texto e interface passaram a ser Manrope. */
+  --font-display: "Cabinet Grotesk", "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-ui:      "Manrope", "Helvetica Neue", Arial, sans-serif;
+  --font-body:    var(--font-ui);   /* alias de compatibilidade com a v0.4 */
+  --font-mono:    "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+  --width-display: 96;   /* font-variation-settings: "wdth" — só quando cai no Archivo */
+
+  /* Escala fluida. O topo é o valor a 1440px; o piso é o valor no celular. */
+  --text-h1:   clamp(42px, 5.1vw, 72px);
+  --text-h2:   clamp(32px, 3.7vw, 56px);
+  --text-h3:   36px;
+  --text-h4:   21px;
+  --text-lead: clamp(17px, 1.3vw, 19px);
+  --text-h5:   20px;
+  --text-lg:   18px;
+  --text-md:   17px;   /* corpo. Não reduz no celular: público de 45 a 65 anos. */
+  --text-sm:   14px;
+  --text-xs:   12px;
+
+  --lh-tight:   1.06;   /* h1 */
+  --lh-display: 1.08;   /* h2 */
+  --lh-heading: 1.2;    /* h3, h4 */
+  --lh-lead:    1.55;
+  --lh-body:    1.5;
+
+  --ls-h1:      -0.028em;
+  --ls-h2:      -0.024em;
+  --ls-h3:      -0.03em;
+  --ls-ui:       0.02em;   /* tracking da Manrope, herdado da referência */
+  --ls-badge:    0.08em;
+  --ls-mono:     0.1em;
+  --ls-display: var(--ls-h1);   /* alias de compatibilidade com a v0.4 */
+
+  --fw-display: 800;
+  --fw-bold:    700;
+  --fw-semi:    600;
+  --fw-medium:  500;
+  --fw-regular: 400;
+
+  /* Display sempre em CAIXA ALTA. Continua sendo a assinatura da marca. */
+  --case-display: uppercase;
+
+  /* ---- Espaço: base 8 ---- */
+  --space-1: 4px;   --space-2: 8px;   --space-3: 12px;  --space-4: 16px;
+  --space-5: 20px;  --space-6: 24px;  --space-8: 32px;  --space-12: 48px;
+  --space-14: 56px;
+  --space-20: 80px;
+  --space-30: 120px;
+  --space-40: 160px;
+
+  /* ---- Layout ---- */
+  --shell:     1400px;   /* container de conteúdo */
+  --shell-nav: 1200px;   /* pill da navegação */
+  --pad-x:     64px;     /* gutter */
+  --measure:   860px;    /* prosa centralizada, depoimento */
+  --frame-inset: 20px;   /* respiro entre a moldura de mídia e a viewport */
+
+  --section-pad:    120px 0 128px;
+  --section-pad-sm: 96px 0 104px;
+
+  /* Aliases da v0.4, para não quebrar folha antiga */
+  --container:     var(--shell);
+  --container-max: var(--shell);
+  --gutter:        var(--pad-x);
+
+  --hero-h:   100vh;
+  --hero-min: 700px;
+  --hero-max: 915px;
+
+  --bp-sm: 810px;
+  --bp-md: 1024px;
+  --bp-lg: 1200px;
+
+  /* ---- Forma: escala de quatro raios. O raio único de 4px acabou. ---- */
+  --r-pill:  999px;   /* botão, nav, chip, badge, selo, barra do celular */
+  --r-frame: 28px;    /* moldura de mídia sangrando: herói e CTA final */
+  --r-card:  24px;    /* card, painel, formulário, dropdown, sheet */
+  --r-media: 20px;    /* foto de projeto, mapa, vídeo dentro de grade */
+  --r-sm:    12px;    /* campo de formulário, item pequeno */
+  --r-nav:   4px;     /* barra de navegação, CTA da nav, hambúrguer — vem da Visuvate */
+  --r-dot:   999px;
+  --radius:  var(--r-card);   /* alias da v0.4 */
+
+  /* ---- Elevação: continua quase nenhuma em superfície clara. ---- */
+  --shadow-none: none;
+  --shadow-sm:   0 2px 4px rgba(22,50,74,.15);
+  --shadow-nav:  0 10px 30px -18px rgba(12,27,41,.45);
+  --shadow-pop:  0 24px 60px -30px rgba(12,27,41,.5);
+  --shadow-modal: 0 40px 90px -40px rgba(9,20,31,.8);
+
+  /* ---- Controles: pill ---- */
+  --control-h:      52px;   /* CTA de página */
+  --control-h-sm:   44px;   /* nav, secundário, botão de ícone */
+  --control-pad:      6px 8px 6px 24px;
+  --control-pad-flat: 6px 26px;   /* variante sem chip de seta */
+  --control-gap:    14px;
+  --icon-chip:      40px;
+  --icon-chip-sm:   34px;
+  --icon:           15px;
+  --nav-h:          68px;
+  --nav-h-stuck:    64px;
+  --nav-inset:      20px;
+  --input-h:        52px;
+  --tap-min:        48px;
+
+  /* ---- Movimento ---- */
+  --ease-out:      cubic-bezier(.16,.84,.24,1);   /* saída de UI */
+  --ease-soft:     cubic-bezier(.22,1,.36,1);     /* a curva assinatura da v0.5 */
+  --ease-standard: cubic-bezier(.4,0,.2,1);
+  --ease-glide:    cubic-bezier(.25,.1,.25,1);
+  --ease-reveal:   var(--ease-soft);   /* alias da v0.4 */
+
+  --dur-fast:   150ms;
+  --dur-quick:  240ms;
+  --dur-base:   300ms;
+  --dur-mid:    400ms;
+  --dur-reveal: 800ms;
+  --dur-in:     900ms;   /* entrada na carga */
+  --dur-zoom:   2600ms;  /* zoom lento da foto do herói */
+
+  --stagger:      80ms;   /* entre cards */
+  --stagger-word: 62ms;   /* entre palavras do título */
+  --delay-enter:  360ms;
+  --blur-enter:   10px;
+
+  /* =========================================================================
+     2. SEMÂNTICOS
+     ========================================================================= */
+
+  /* ---- Superfície clara: o padrão do site ---- */
+  --surface-page:   var(--white);
+  --surface-alt:    var(--silver-100);
+  --surface-raised: var(--white);
+  --surface-brand:  var(--blue-50);
+  --surface-invert: var(--blue-900);   /* bloco de tinta, ex. o card de fechamento */
+
+  --text-primary: var(--silver-900);
+  --text-body:    var(--silver-700);
+  --text-muted:   var(--silver-600);
+  --text-on-dark: var(--white);
+  --line:         #DDE4EA;
+
+  /* ---- Ground: a superfície escura, permitida só em moldura de mídia ----
+     Herói, formulário e CTA final. Sempre com foto por baixo, nunca como
+     fundo chapado de seção de texto. */
+  --ground:      var(--ink-950);
+  --ground-soft: var(--ink-900);
+  --on-ground:   var(--white);
+  --on-ground-2: rgba(255,255,255,.72);
+  --on-ground-3: rgba(255,255,255,.48);
+
+  --scrim-hero:
+    linear-gradient(180deg, rgba(var(--ink-scrim),.72) 0%, rgba(var(--ink-scrim),.22) 34%, rgba(var(--ink-scrim),.62) 68%, rgba(var(--ink-scrim),.9) 100%),
+    linear-gradient(78deg,  rgba(var(--ink-scrim),.78) 0%, rgba(var(--ink-scrim),.24) 52%, rgba(var(--ink-scrim),0) 82%);
+  --scrim-panel: linear-gradient(180deg, rgba(var(--ink-scrim),.88) 0%, rgba(var(--ink-scrim),.8) 60%, rgba(var(--ink-scrim),.92) 100%);
+  --scrim-side:  linear-gradient(90deg,  rgba(var(--ink-scrim),.9) 0%, rgba(var(--ink-scrim),.7) 48%, rgba(var(--ink-scrim),.3) 100%);
+
+  /* ---- Vidro ---- */
+  --glass:        rgba(255,255,255,.10);
+  --glass-strong: rgba(255,255,255,.16);
+  --glass-line:   rgba(255,255,255,.18);
+  --glass-nav:    rgba(12,27,41,.34);
+  --glass-nav-stuck: rgba(255,255,255,.82);
+  --glass-panel:  rgba(255,255,255,.92);
+  --blur-glass:   blur(14px) saturate(1.2);
+  --blur-panel:   blur(20px) saturate(1.1);
+
+  /* ---- Ação ---- */
+  --action-block:    var(--blue-400);
+  --action-on-block: var(--blue-900);
+  --action-dark:     var(--blue-900);
+  --action-on-dark:  var(--white);
+  --action-light:    var(--white);
+  --action-on-light: var(--blue-900);
+  --action-soft:     var(--blue-200);   /* estado desabilitado */
+  --action-urgent:   var(--copper-600);
+
+  /* Link nunca é colorido. É sublinhado, herda a cor do texto. */
+  --link-color:  currentColor;
+  --link-offset: 3px;
+
+  --focus-ring:   2px solid var(--blue-400);
+  --focus-offset: 3px;
+
+  --feedback-success-fg: var(--green-600); --feedback-success-bg: var(--green-50);
+  --feedback-warning-fg: var(--amber-600); --feedback-warning-bg: var(--amber-50);
+  --feedback-danger-fg:  var(--red-600);   --feedback-danger-bg:  var(--red-50);
+  --feedback-info-fg:    var(--blue-700);  --feedback-info-bg:    var(--blue-50);
+  /* Erro sobre vidro escuro: o vermelho da paleta não passa em 4,5:1 lá. */
+  --feedback-danger-on-ground: #FFC4C4;
+  --feedback-danger-line-on-ground: #FF9B9B;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0ms; --dur-quick: 0ms; --dur-base: 0ms; --dur-mid: 0ms;
+    --dur-reveal: 0ms; --dur-in: 0ms; --dur-zoom: 0ms;
+    --stagger: 0ms; --stagger-word: 0ms; --delay-enter: 0ms;
+    --blur-enter: 0px;
+  }
+}
+
+@media (max-width: 1200px) {
+  :root { --pad-x: 40px; }
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --nav-h: 62px;
+    --hero-h: auto;
+  }
+}
+
+@media (max-width: 810px) {
+  :root {
+    --text-h3: 24px;
+    --pad-x: 20px;
+    --frame-inset: 10px;
+    --r-frame: 22px;
+    --section-pad:    80px 0 88px;
+    --section-pad-sm: 64px 0 72px;
+    --space-30: 80px;
+    --space-40: 80px;
+    /* --text-md fica em 17px. Quem não consegue ler não dá zoom, desiste. */
+  }
+}
+
+/* ==========================================================================
+   TEMA ESCURO OPCIONAL — v0.5.1
+   Ligado só pelo botão da navegação, que grava a escolha em localStorage.
+   Não existe bloco prefers-color-scheme: o padrão continua claro em qualquer
+   sistema operacional, como o briefing pediu. Isto é preferência explícita do
+   visitante, não tema automático.
+   ========================================================================== */
+[data-theme="dark"] {
+  --surface-page:   var(--ink-950);
+  --surface-alt:    var(--ink-900);
+  --surface-raised: #16324A;
+  --surface-brand:  rgba(123,189,236,.12);
+
+  --text-primary: #FFFFFF;
+  --text-body:    rgba(255,255,255,.76);
+  --text-muted:   rgba(255,255,255,.56);
+  --line:         rgba(255,255,255,.16);
+
+  --action-light:    rgba(255,255,255,.10);
+  --action-on-light: #FFFFFF;
+  --action-dark:     var(--blue-400);
+  --action-on-dark:  var(--blue-900);
+
+  --glass-nav-stuck: rgba(12,27,41,.72);
+  --glass-panel:     rgba(18,40,59,.94);
+
+  --grain-opacity: .05;
+
+  /* Sobre o escuro o céu passa em 8,58:1 e pode carregar texto. */
+  --feedback-info-fg: var(--blue-300);
+}

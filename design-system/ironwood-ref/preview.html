@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ironwood — Reference System</title>
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="motion.css">
+<link rel="stylesheet" href="components.css">
+<style>
+  body { margin:0; background: var(--ref-bg); color: var(--ref-fg); font-family: var(--ref-font-body); }
+  .strip { padding: 56px 50px; border-bottom: 1px solid var(--ref-line); }
+  .strip > h2 { font-family: var(--ref-font-body); font-size: 12px; letter-spacing:.12em; text-transform:uppercase; color: var(--ref-text-muted); margin:0 0 24px; font-weight:500; }
+  .row { display:flex; flex-wrap:wrap; gap:16px; align-items:center; }
+  .sw { width:110px; }
+  .sw i { display:block; height:64px; border-radius: var(--ref-radius); border:1px solid var(--ref-line); }
+  .sw b { display:block; font-size:12px; margin-top:8px; font-weight:500; }
+  .sw span { display:block; font-size:12px; color: var(--ref-text-muted); font-variant-numeric: tabular-nums; }
+  .dark { background: var(--ref-ink); color:#fff; }
+  .dark .sw span { color: var(--ref-text-muted); }
+  .steps { display:flex; align-items:center; gap:12px; max-width:640px; }
+</style>
+</head>
+<body>
+
+<section class="strip">
+  <h2>Cor</h2>
+  <div class="row">
+    <div class="sw"><i style="background:var(--ref-ink)"></i><b>ink</b><span>#171614</span></div>
+    <div class="sw"><i style="background:var(--ref-ink-footer)"></i><b>ink footer</b><span>#181614</span></div>
+    <div class="sw"><i style="background:var(--ref-accent)"></i><b>accent</b><span>#f7b74a</span></div>
+    <div class="sw"><i style="background:var(--ref-accent-soft)"></i><b>accent soft</b><span>#f0ce96</span></div>
+    <div class="sw"><i style="background:var(--ref-bone)"></i><b>bone</b><span>#f5f3ee</span></div>
+    <div class="sw"><i style="background:var(--ref-text-body)"></i><b>text body</b><span>#54504a</span></div>
+    <div class="sw"><i style="background:var(--ref-text-muted)"></i><b>text muted</b><span>#a8a298</span></div>
+    <div class="sw"><i style="background:var(--ref-border)"></i><b>border</b><span>#d8d2ca</span></div>
+  </div>
+</section>
+
+<section class="strip">
+  <h2>Tipografia</h2>
+  <p class="ref-h1" style="margin:0 0 16px">We build homes</p>
+  <p class="ref-h2" style="margin:0 0 16px">Services we offer</p>
+  <p class="ref-h3" style="margin:0 0 16px">Design-Build vs. Traditional</p>
+  <p class="ref-h4" style="margin:0 0 16px">Architectural Design</p>
+  <p class="ref-lead" style="margin:0 0 12px; max-width:640px">From architectural design to the final finish, we craft bespoke custom homes with fixed pricing.</p>
+  <p class="ref-body" style="margin:0 0 8px; max-width:640px">Body 16 / 1.5 — Geist medium. Warm grey, never pure black.</p>
+  <p class="ref-caption" style="margin:0">Caption 14 / 1.5 — muted.</p>
+</section>
+
+<section class="strip">
+  <h2>Botões <span style="text-transform:none;letter-spacing:0">— o fundo escuro atrás de “View Our Work” é só do preview: na origem esse botão vive sobre foto</span></h2>
+  <div class="row">
+    <a class="ref-btn ref-btn--primary ref-btn--icon" href="#">Book a Consultation
+      <span class="ref-btn__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+    </a>
+    <a class="ref-btn ref-btn--dark ref-btn--icon" href="#">Learn More
+      <span class="ref-btn__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+    </a>
+    <span style="display:inline-flex;padding:12px;border-radius:var(--ref-radius);background:var(--ref-ink)"><a class="ref-btn ref-btn--light ref-btn--sm" href="#">View Our Work</a></span>
+    <a class="ref-btn ref-btn--dark ref-btn--sm" href="#">Read More</a>
+    <button class="ref-icon-btn ref-icon-btn--disabled" disabled><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></button>
+    <button class="ref-icon-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+    <button class="ref-icon-btn ref-icon-btn--dark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+  </div>
+</section>
+
+<section class="strip">
+  <h2>Badge · Chip · Step · Dots</h2>
+  <div class="row" style="margin-bottom:24px">
+    <span class="ref-badge">Our Services</span>
+    <span class="ref-badge">Built with intent</span>
+    <span class="ref-chip">Renovation Guides</span>
+    <span class="ref-chip ref-chip--onmedia">Architectural Design</span>
+  </div>
+  <div class="steps" style="margin-bottom:24px">
+    <span class="ref-step">01.</span><i class="ref-step-connector"></i>
+    <span class="ref-step">02.</span><i class="ref-step-connector"></i>
+    <span class="ref-step">03.</span>
+  </div>
+  <div class="row">
+    <button class="ref-dot" aria-current="true"></button>
+    <button class="ref-dot"></button>
+    <button class="ref-dot"></button>
+    <button class="ref-dot"></button>
+  </div>
+</section>
+
+<section class="strip">
+  <h2>Reveal de headline (recarregue para rever)</h2>
+  <h1 class="ref-h1 ref-reveal-words" style="margin:0; max-width:900px">
+    <span style="--i:0">WE</span> <span style="--i:1">BUILD</span> <span style="--i:2">HOMES</span>
+    <span style="--i:3">MADE</span> <span style="--i:4">TO</span> <span style="--i:5">LAST</span>
+    <span style="--i:6">A</span> <span style="--i:7">LIFETIME</span>
+  </h1>
+</section>
+
+<section class="strip dark">
+  <h2 style="color:var(--ref-text-muted)">Footer / input</h2>
+  <div class="row">
+    <input class="ref-input" placeholder="Enter your email here" style="width:227px">
+    <button class="ref-btn ref-btn--primary ref-btn--sm">Submit</button>
+  </div>
+</section>
+
+</body>
+</html>

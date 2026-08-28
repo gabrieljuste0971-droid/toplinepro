@@ -1,0 +1,111 @@
+/* ==========================================================================
+   Motion extracted from construction-visuvate.framer.website
+   The site uses Framer Motion (JS/WAAPI), not CSS keyframes — the values
+   below were captured by intercepting Element.animate() and by reading the
+   pre-reveal inline styles Framer writes on every animated node.
+   ========================================================================== */
+
+:root {
+  /* The signature curve. Every text reveal on the site uses exactly this. */
+  --ref-ease-reveal: cubic-bezier(0.12, 0.23, 0.5, 1);
+  /* Secondary curves found on UI transitions */
+  --ref-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ref-ease-glide:    cubic-bezier(0.25, 0.1, 0.25, 1);
+
+  --ref-dur-fast:   150ms;  /* transform on micro-interactions */
+  --ref-dur-quick:  200ms;  /* opacity on micro-interactions */
+  --ref-dur-base:   250ms;  /* default UI transition */
+  --ref-dur-mid:    300ms;  /* background / border-color */
+  --ref-dur-reveal: 400ms;  /* THE reveal duration — used everywhere */
+  --ref-dur-slow:   400ms;
+  --ref-dur-glide:  400ms;
+
+  --ref-stagger:      75ms;  /* per-word delay in the hero headline */
+  --ref-delay-enter: 400ms;  /* first word of the hero starts here */
+
+  --ref-blur-enter:  8px;    /* reveals come out of an 8px blur */
+  --ref-blur-glass:  4px;    /* backdrop-filter on floating surfaces */
+}
+
+/* --------------------------------------------------------------------------
+   1. WORD-BY-WORD HEADLINE REVEAL  (the hero signature)
+   Framer splits the h1 into <span> per word and runs two animations in
+   parallel on each: opacity 0.001 -> 1 and filter blur(8px) -> blur(0px).
+   400ms, --ref-ease-reveal, fill both, delays 400/475/550/625/700... (+75ms)
+   -------------------------------------------------------------------------- */
+@keyframes ref-word-in {
+  from { opacity: .001; filter: blur(8px); }
+  to   { opacity: 1;    filter: blur(0px); }
+}
+
+.ref-reveal-words > * {
+  display: inline-block;
+  opacity: .001;
+  filter: blur(8px);
+  animation: ref-word-in var(--ref-dur-reveal) var(--ref-ease-reveal) both;
+}
+/* Stagger: set --i on each word (0,1,2,...) */
+.ref-reveal-words > * {
+  animation-delay: calc(var(--ref-delay-enter) + var(--i, 0) * var(--ref-stagger));
+}
+
+/* --------------------------------------------------------------------------
+   2. SCROLL REVEALS
+   Four distinct pre-states were found in the wild. Same 400ms + same curve.
+   -------------------------------------------------------------------------- */
+@keyframes ref-rise-lg   { from { opacity:0; transform: translateY(30px) scale(.8);  } to { opacity:1; transform:none; } }
+@keyframes ref-rise-md   { from { opacity:0; transform: translateY(10px) scale(.9);  } to { opacity:1; transform:none; } }
+@keyframes ref-rise-sm   { from { opacity:0; transform: translateY(8px)  scale(.9);  } to { opacity:1; transform:none; } }
+@keyframes ref-rise-left { from { opacity:0; transform: translate(-24px, 30px) scale(.9); } to { opacity:1; transform:none; } }
+
+/* Apply with .is-visible toggled by an IntersectionObserver. */
+.ref-rise-lg, .ref-rise-md, .ref-rise-sm, .ref-rise-left {
+  opacity: 0;
+  will-change: transform;
+}
+.ref-rise-lg.is-visible   { animation: ref-rise-lg   var(--ref-dur-reveal) var(--ref-ease-reveal) both; }
+.ref-rise-md.is-visible   { animation: ref-rise-md   var(--ref-dur-reveal) var(--ref-ease-reveal) both; }
+.ref-rise-sm.is-visible   { animation: ref-rise-sm   var(--ref-dur-reveal) var(--ref-ease-reveal) both; }
+.ref-rise-left.is-visible { animation: ref-rise-left var(--ref-dur-reveal) var(--ref-ease-reveal) both; }
+
+/* Card grids stagger the same way as the headline words. */
+.ref-stagger > * { animation-delay: calc(var(--i, 0) * var(--ref-stagger)); }
+
+/* --------------------------------------------------------------------------
+   3. HOVER MICRO-INTERACTIONS (the only two that exist on this site)
+   a) trailing arrow icon rotates exactly 45deg
+   b) the nav CTA drops to 0.8 opacity — no colour change, no lift
+   -------------------------------------------------------------------------- */
+.ref-btn__icon svg,
+.ref-arrow-rotate {
+  transition: transform var(--ref-dur-base) var(--ref-ease-standard);
+}
+.ref-btn:hover .ref-btn__icon svg,
+.ref-arrow-rotate:hover { transform: rotate(45deg); }
+
+.ref-btn--nav { transition: opacity var(--ref-dur-quick) var(--ref-ease-standard); }
+.ref-btn--nav:hover { opacity: .8; }
+
+/* Generic transitions actually present in the stylesheet */
+.ref-t-standard { transition: all var(--ref-dur-base) var(--ref-ease-standard); }
+.ref-t-pair     { transition: opacity var(--ref-dur-quick), transform var(--ref-dur-fast); }
+.ref-t-surface  { transition: background var(--ref-dur-mid), border-color var(--ref-dur-mid); }
+.ref-t-glide    { transition: transform var(--ref-dur-glide) var(--ref-ease-glide); }
+
+/* --------------------------------------------------------------------------
+   4. LOADER — the one real @keyframes block Framer ships.
+   -------------------------------------------------------------------------- */
+@keyframes ref-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+/* -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .ref-reveal-words > *,
+  .ref-rise-lg, .ref-rise-md, .ref-rise-sm, .ref-rise-left {
+    animation: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+  }
+  .ref-btn:hover .ref-btn__icon svg,
+  .ref-arrow-rotate:hover { transform: none; }
+}

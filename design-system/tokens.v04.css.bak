@@ -1,0 +1,222 @@
+/* ==========================================================================
+   TopLine Pro Construction — Seam & Slate v0.4
+   Camadas: primitivo -> semântico -> componente.
+
+   PROCEDÊNCIA
+   Cor .......... nossa. Amostrada pixel a pixel do logotipo. Nada muda aqui.
+   Tipografia ... Ironwood. Cabinet Grotesk (display, caixa alta) + Geist (texto).
+   Forma ........ Ironwood. Raio único de 4px, sem sombra, profundidade por bloco.
+   Controle ..... Ironwood. 44px / 40px, chip de ícone de 32px, hover por opacidade.
+   Ritmo ........ Ironwood. Seção 120/160, container 1340, régua de 6 colunas.
+   Movimento .... Ironwood. Reveal palavra a palavra, 400ms, blur 8px -> 0.
+   Tema ......... nosso. Claro, único, sem versão escura. Briefing manda.
+   ========================================================================== */
+
+:root {
+  /* =========================================================================
+     1. PRIMITIVOS
+     ========================================================================= */
+
+  /* ---- Cor: inalterada. Ancorada no degradê do logotipo. ---- */
+  --blue-50:  #F2F8FD;
+  --blue-100: #DCEDF9;
+  --blue-200: #BCDCF3;
+  --blue-300: #9BCBEE;
+  --blue-400: #7BBDEC;  /* topo do degradê do logotipo */
+  --blue-500: #5A9BCE;
+  --blue-600: #3F7CAC;  /* meio do degradê */
+  --blue-700: #2F6088;
+  --blue-800: #254A6A;  /* base do degradê */
+  --blue-900: #16324A;
+
+  --silver-50:  #FAFBFC;
+  --silver-100: #F1F4F7;
+  --silver-200: #E4E9ED;
+  --silver-300: #CFD5DA;
+  --silver-400: #B2BAC1;
+  --silver-500: #8E979F;
+  --silver-600: #62707B;
+  --silver-700: #44525E;
+  --silver-800: #31373C;
+  --silver-900: #101922;
+
+  --white: #FFFFFF;
+  --copper-600: #9A5F32;   /* só emergência de inverno */
+  --green-600: #2E7D5B; --green-50: #ECF6F1;
+  --amber-600: #A8710F;  --amber-50: #FDF5E7;
+  --red-600:   #B23B3B;  --red-50:   #FBEDED;
+
+  --gradient-brand: linear-gradient(160deg, var(--blue-400) 0%, var(--blue-800) 100%);
+  --gradient-metal: linear-gradient(160deg, #FFFFFF 0%, #DDE2E6 38%, #9BA3AA 62%, #EDF0F2 100%);
+
+  /* Atmosfera. Nenhuma superfície é branco chapado. */
+  --wash:  radial-gradient(120% 78% at 50% -12%, rgba(123,189,236,.16) 0%, rgba(123,189,236,0) 62%);
+  --seam:  repeating-linear-gradient(90deg, rgba(37,74,106,.055) 0 1px, transparent 1px 32px);
+  --grain-opacity: .032;
+
+  /* ---- Tipografia: estrutura de duas fontes do Ironwood. ----
+     Cabinet Grotesk é Fontshare. Onde ela não carrega (artifact, CSP), Archivo
+     assume — mesma família de grotesca quadrada, com eixo de largura para
+     aproximar a caixa alta pesada. */
+  --font-display: "Cabinet Grotesk", "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-body:    "Geist", "Helvetica Neue", Arial, sans-serif;
+  --font-mono:    "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+  --width-display: 96;   /* font-variation-settings: "wdth" — só quando cai no Archivo */
+
+  /* Escala do Ironwood, medida a 1440px. Corpo subiu 16 -> 17: público 45-65. */
+  --text-h1:   72px;
+  --text-h2:   54px;
+  --text-h3:   36px;
+  --text-h4:   24px;
+  --text-lead: 24px;
+  --text-h5:   20px;
+  --text-lg:   18px;
+  --text-md:   17px;
+  --text-sm:   14px;
+  --text-xs:   12px;
+
+  --lh-tight:   1.0;   /* h4 */
+  --lh-display: 1.2;   /* h1, h2 */
+  --lh-heading: 1.3;   /* h3 */
+  --lh-lead:    1.4;
+  --lh-body:    1.5;
+
+  --ls-display: -0.02em;
+  --ls-h3:      -0.04em;  /* mais apertado que o h1, de propósito */
+  --ls-lead:    -0.01em;
+  --ls-badge:    0.04em;
+  --ls-normal:   0;
+
+  --fw-display: 800;
+  --fw-bold:    700;
+  --fw-medium:  500;
+  --fw-regular: 400;
+
+  /* Display sempre em CAIXA ALTA. É a assinatura tipográfica do sistema. */
+  --case-display: uppercase;
+
+  /* ---- Espaço: base 8, mas o ritmo de seção é bem maior. ---- */
+  --space-1: 4px;   --space-2: 8px;   --space-3: 12px;  --space-4: 16px;
+  --space-5: 20px;  --space-6: 24px;  --space-8: 32px;  --space-12: 48px;
+  --space-14: 56px; /* gap interno dominante de seção */
+  --space-20: 80px;
+  --space-30: 120px;
+  --space-40: 160px;
+
+  /* ---- Layout ---- */
+  --container:     1340px;
+  --container-max: 1600px;
+  --measure:       860px;   /* prosa centralizada, depoimento */
+  --gutter:        50px;
+  --grid-columns:  6;
+  --grid-pitch:    223px;
+  --grid-line:     1px;
+  --section-pad:    var(--space-30) 0 var(--space-40);
+  --section-pad-sm: var(--space-20) 0 var(--space-40);
+  --bp-sm: 810px;
+  --bp-md: 1200px;
+
+  /* ---- Forma: um raio só, no site inteiro. ---- */
+  --radius-xs:   2px;
+  --radius:      4px;   /* botão, card, imagem, chip, input, nav */
+  --radius-dot:  10px;
+  --radius-full: 999px;
+
+  /* ---- Elevação: quase nenhuma. Profundidade vem de bloco de cor. ---- */
+  --shadow-none: none;
+  --shadow-sm:   0 2px 4px rgba(22,50,74,.15);
+  --shadow-lift: 0 .6px 1.57px -1.5px rgba(22,50,74,.17),
+                 0 2.29px 5.95px -3px rgba(22,50,74,.14),
+                 0 10px 26px -4.5px rgba(22,50,74,.02);
+
+  /* ---- Controles ---- */
+  --control-h:    44px;  /* CTA de página */
+  --control-h-sm: 40px;  /* nav, secundário, botão de ícone */
+  --control-pad:      8px 20px;
+  --control-pad-icon: 6px 6px 6px 12px;
+  --control-gap:  12px;
+  --icon-chip:    32px;
+  --icon:         24px;
+  --nav-h:        73px;
+  --nav-inset:    20px;
+  --input-h:      41px;
+
+  /* ---- Movimento ---- */
+  --ease-reveal:   cubic-bezier(.12,.23,.5,1);   /* a curva assinatura */
+  --ease-standard: cubic-bezier(.4,0,.2,1);
+  --ease-glide:    cubic-bezier(.25,.1,.25,1);
+  --dur-fast:   150ms;
+  --dur-quick:  200ms;
+  --dur-base:   250ms;
+  --dur-mid:    300ms;
+  --dur-reveal: 400ms;
+  --stagger:     75ms;
+  --delay-enter:400ms;
+  --blur-enter:   8px;
+
+  /* =========================================================================
+     2. SEMÂNTICOS
+     Tema claro único. O briefing marcou "Cores Claras" e deixou "Cores Escuras"
+     desmarcada, então não existe bloco de tema escuro e a página não segue a
+     preferência do sistema operacional do visitante.
+     Dominância: 80% claro · 12% navy · 8% céu, medida por área ocupada.
+     ========================================================================= */
+
+  --surface-page:    var(--white);
+  --surface-alt:     var(--silver-100);   /* equivale ao "bone" do Ironwood */
+  --surface-raised:  var(--white);
+  --surface-brand:   var(--blue-50);
+  /* Exceção, dois usos: placa de jardim de inverno e colete da equipe.
+     Contra neve acumulada, peça clara desaparece. Nunca em seção de página. */
+  --surface-invert:  var(--blue-900);
+
+  --text-primary: var(--silver-900);
+  --text-body:    var(--silver-700);
+  --text-muted:   var(--silver-600);
+  --text-on-dark: var(--white);
+  --line:         #DDE4EA;
+
+  /* O bloco de CTA. Mesma mecânica do amber do Ironwood: fundo claro saturado,
+     rótulo escuro por cima. Céu #7BBDEC com navy dá 7.33:1. */
+  --action-block:    var(--blue-400);
+  --action-on-block: var(--blue-900);
+  --action-dark:     var(--blue-900);
+  --action-on-dark:  var(--white);
+  --action-light:    var(--white);
+  --action-on-light: var(--blue-900);
+  --action-soft:     var(--blue-200);   /* estado desabilitado */
+  --action-urgent:   var(--copper-600);
+
+  /* Link nunca é colorido. É sublinhado, herda a cor do texto. */
+  --link-color: currentColor;
+  --link-offset: 3px;
+
+  --focus-ring: 2px solid var(--blue-400);
+  --focus-offset: 2px;
+
+  --feedback-success-fg: var(--green-600); --feedback-success-bg: var(--green-50);
+  --feedback-warning-fg: var(--amber-600); --feedback-warning-bg: var(--amber-50);
+  --feedback-danger-fg:  var(--red-600);   --feedback-danger-bg:  var(--red-50);
+  --feedback-info-fg:    var(--blue-700);  --feedback-info-bg:    var(--blue-50);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0ms; --dur-quick: 0ms; --dur-base: 0ms;
+    --dur-mid: 0ms; --dur-reveal: 0ms; --stagger: 0ms; --delay-enter: 0ms;
+    --blur-enter: 0px;
+  }
+}
+
+@media (max-width: 810px) {
+  :root {
+    --text-h1: 40px;
+    --text-h2: 32px;
+    --text-h3: 24px;
+    --text-lead: 19px;
+    /* --text-md fica em 17px. Não reduz: o público não aumenta o zoom, desiste. */
+    --gutter: 20px;
+    --space-30: 80px;
+    --space-40: 80px;
+  }
+}

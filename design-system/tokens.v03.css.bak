@@ -1,0 +1,322 @@
+/* ==========================================================================
+   TopLine Pro Construction — Design System
+   Layer 1: Primitives  •  Layer 2: Semantics  •  Layer 3: Components
+   Derived from the brand mark (blue gradient + metallic silver) and the
+   landing page briefing: light, serious, modern, clean, friendly, dynamic.
+   ========================================================================== */
+
+:root {
+  /* ---------------------------------------------------------------------
+     1. PRIMITIVES — raw values. Never reference these directly in the UI.
+     --------------------------------------------------------------------- */
+
+  /* Brand blue — anchored on the logo gradient.
+     400 = lightest blue of the mark (#7BBDEC)
+     600 = mid tone of the mark (~#4B7CA3)
+     800 = deepest blue of the mark (#254A6A) */
+  --blue-50:  #F2F8FD;
+  --blue-100: #DCEDF9;
+  --blue-200: #BCDCF3;
+  --blue-300: #9BCBEE;
+  --blue-400: #7BBDEC;
+  --blue-500: #5A9BCE;
+  --blue-600: #3F7CAC;
+  --blue-700: #2F6088;
+  --blue-800: #254A6A;
+  --blue-900: #16324A;
+
+  /* Metallic silver / graphite — the second half of the mark */
+  --silver-50:  #FAFBFC;
+  --silver-100: #F1F3F5;
+  --silver-200: #E4E8EB;
+  --silver-300: #CFD5DA;
+  --silver-400: #B2BAC1;
+  --silver-500: #8E979F;
+  --silver-600: #6B747C;
+  --silver-700: #4C545B;
+  --silver-800: #31373C;
+  --silver-900: #1B1F23;
+
+  --white: #FFFFFF;
+
+  /* Copper accent — used sparingly, only for copper-roofing content */
+  --copper-400: #C88A5A;
+  --copper-600: #9A5F32;
+
+  /* Functional */
+  --green-600:  #2E7D5B;
+  --green-50:   #ECF6F1;
+  --amber-600:  #A8710F;
+  --amber-50:   #FDF5E7;
+  --red-600:    #B23B3B;
+  --red-50:     #FBEDED;
+
+  /* Gradients from the mark */
+  --gradient-brand: linear-gradient(160deg, var(--blue-400) 0%, var(--blue-800) 100%);
+  --gradient-metal: linear-gradient(160deg, #FFFFFF 0%, #DDE2E6 38%, #9BA3AA 62%, #EDF0F2 100%);
+  --gradient-scrim: linear-gradient(180deg, rgba(22,50,74,0) 0%, rgba(22,50,74,.55) 55%, rgba(22,50,74,.86) 100%);
+
+  /* Atmosfera — o fundo nunca e branco chapado.
+     Tres camadas: luz fria no topo, grao fino, costura vertical. */
+  --wash-light: radial-gradient(120% 80% at 50% -10%, rgba(123,189,236,.14) 0%, rgba(123,189,236,0) 60%);
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.42'/%3E%3C/svg%3E");
+  --grain-opacity: .035;
+
+  /* Standing-seam texture — the signature service, as background rhythm.
+     Vertical seams, never as decorative illustration. */
+  --texture-seam: repeating-linear-gradient(
+      90deg,
+      rgba(37,74,106,.05) 0px,
+      rgba(37,74,106,.05) 1px,
+      transparent 1px,
+      transparent 28px);
+
+  /* Type */
+  /* Archivo tem eixo de largura (wdth 62-125). O display roda em 112 —
+     titulo largo, com a mesma proporcao de uma cumeeira. */
+  --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-body:    "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-mono:    "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+  --width-display: 112;  /* font-variation-settings: "wdth" var(--width-display) */
+  --width-text: 100;
+
+  --text-2xs: 0.75rem;   /* 12px — legal, captions */
+  --text-xs:  0.8125rem; /* 13px — eyebrow, labels */
+  --text-sm:  0.9375rem; /* 15px — helper text, meta */
+  --text-md:  1.0625rem; /* 17px — body default (audience is 45–65) */
+  --text-lg:  1.1875rem; /* 19px — lead paragraph */
+  --text-xl:  1.5rem;    /* 24px — h4 / card title */
+  --text-2xl: 1.875rem;  /* 30px — h3 */
+  --text-3xl: 2.5rem;    /* 40px — h2 */
+  --text-4xl: 3.25rem;   /* 52px — h1 */
+  --text-5xl: 4.5rem;    /* 72px — display de secao */
+  --text-6xl: 6rem;      /* 96px — display de heroi, desktop grande */
+
+  --leading-tight:   1.08;
+  --leading-snug:    1.22;
+  --leading-normal:  1.45;
+  --leading-relaxed: 1.65;
+
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+  --weight-black:    800;
+
+  --tracking-tight: -0.02em;
+  --tracking-flat:  0;
+  --tracking-wide:  0.08em;
+  --tracking-eyebrow: 0.16em; /* matches "CONSTRUCTION" in the lockup */
+
+  /* Spacing — 4px base */
+  --space-0:  0;
+  --space-1:  0.25rem;  /* 4  */
+  --space-2:  0.5rem;   /* 8  */
+  --space-3:  0.75rem;  /* 12 */
+  --space-4:  1rem;     /* 16 */
+  --space-5:  1.25rem;  /* 20 */
+  --space-6:  1.5rem;   /* 24 */
+  --space-8:  2rem;     /* 32 */
+  --space-10: 2.5rem;   /* 40 */
+  --space-12: 3rem;     /* 48 */
+  --space-16: 4rem;     /* 64 */
+  --space-20: 5rem;     /* 80 */
+  --space-24: 6rem;     /* 96 */
+  --space-32: 8rem;     /* 128 */
+
+  /* Radius — restrained. Serious before soft. */
+  --radius-xs:   3px;
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+  --radius-full: 999px;
+
+  /* Elevation — tinted with brand navy, never neutral black */
+  --shadow-xs: 0 1px 2px rgba(22,50,74,.06);
+  --shadow-sm: 0 2px 8px rgba(22,50,74,.08);
+  --shadow-md: 0 8px 24px rgba(22,50,74,.10);
+  --shadow-lg: 0 18px 48px rgba(22,50,74,.14);
+  --shadow-xl: 0 32px 72px rgba(22,50,74,.18);
+  --shadow-focus: 0 0 0 3px rgba(123,189,236,.55);
+
+  /* Borders */
+  --border-thin:   1px;
+  --border-medium: 2px;
+  --border-thick:  4px;
+
+  /* Motion */
+  --duration-fast:   150ms;
+  --duration-base:   220ms;
+  --duration-slow:   320ms;
+  --duration-slower: 520ms;
+  --ease-out:   cubic-bezier(.2,.7,.3,1);
+  --ease-in-out:cubic-bezier(.65,0,.35,1);
+  --ease-seam:  cubic-bezier(.16,.84,.24,1); /* saida longa: painel deslizando */
+
+  /* Sequencia unica de carga do heroi — nao ha micro-animacao espalhada.
+     A costura varre, depois o conteudo sobe em cascata de 90ms. */
+  --seq-step: 90ms;
+  --seq-wipe: 720ms;
+  --seq-delay-eyebrow: 620ms;
+  --seq-delay-title:   710ms;
+  --seq-delay-lede:    800ms;
+  --seq-delay-cta:     890ms;
+  --reveal-distance: 14px;
+
+  /* Dominância da paleta — 80 claro / 12 navy / 8 céu.
+     Medir por área ocupada na tela ou na peça, não por número de cores. */
+  --dominance-surface: 80%;
+  --dominance-navy: 12%;
+  --dominance-sky: 8%;
+
+  /* Layout */
+  --container-sm: 42rem;   /* 672  — prose */
+  --container-md: 60rem;   /* 960  — forms, narrow sections */
+  --container-lg: 75rem;   /* 1200 — default page container */
+  --container-xl: 87.5rem; /* 1400 — full-bleed galleries */
+  --gutter: var(--space-6);
+  --section-y: clamp(4rem, 8vw, 7.5rem);
+
+  /* Grade de 12 colunas. As composicoes sao assimetricas por regra:
+     nenhuma secao principal usa 6+6. */
+  --grid-cols: 12;
+  --grid-gap: clamp(1rem, 2.5vw, 2rem);
+  --split-hero:    7fr 5fr;   /* texto | foto sangrando */
+  --split-feature: 5fr 7fr;   /* invertido na secao seguinte */
+  --split-doc:     4fr 8fr;   /* trilho | conteudo */
+
+  /* Z-index */
+  --z-base: 0;
+  --z-sticky: 100;
+  --z-dropdown: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+
+  /* ---------------------------------------------------------------------
+     2. SEMANTICS — what the UI actually consumes.
+     --------------------------------------------------------------------- */
+
+  /* Superfícies — o site é claro, ponto. O briefing marcou "Cores Claras" e deixou
+     "Cores Escuras" desmarcada, então não existe tema escuro e o site não segue o
+     tema do sistema operacional do visitante.
+     Navy é TINTA e FILETE, nunca superfície: texto, borda de 3–14px, lateral de
+     destaque. As duas únicas exceções de superfície escura estão documentadas em
+     --surface-inverse abaixo. */
+  --surface-page:      var(--white);
+  --surface-subtle:    var(--silver-50);
+  --surface-muted:     var(--silver-100);
+  --surface-raised:    var(--white);
+  --surface-brand-soft:var(--blue-50);
+  /* Exceção, dois usos só: placa de jardim de inverno (contra neve acumulada, claro
+     desaparece) e colete de inverno da equipe. Não usar em seção de página. */
+  --surface-inverse:   var(--blue-900);
+  --surface-overlay:   rgba(22,50,74,.62);
+
+  /* Text */
+  --text-primary:   var(--silver-900);
+  --text-secondary: var(--silver-700);
+  --text-muted:     var(--silver-600);
+  --text-brand:     var(--blue-800);
+  --text-on-dark:   var(--white);
+  --text-on-dark-muted: rgba(255,255,255,.74);
+  --text-link:      var(--blue-700);
+  --text-link-hover:var(--blue-800);
+
+  /* Borders */
+  --border-subtle: var(--silver-200);
+  --border-default:var(--silver-300);
+  --border-strong: var(--silver-400);
+  --border-brand:  var(--blue-400);
+  --border-on-dark:rgba(255,255,255,.20);
+
+  /* Actions */
+  --action-primary:        var(--blue-700);
+  --action-primary-hover:  var(--blue-800);
+  --action-primary-active: var(--blue-900);
+  --action-on-primary:     var(--white);
+
+  --action-secondary:       var(--white);
+  --action-secondary-hover: var(--blue-50);
+  --action-secondary-border:var(--blue-700);
+  --action-on-secondary:    var(--blue-800);
+
+  --action-quiet-hover: var(--silver-100);
+  --action-disabled-bg: var(--silver-200);
+  --action-disabled-fg: var(--silver-500);
+
+  /* Emergency / winter call-out (snow + ice removal) */
+  --action-urgent:       var(--copper-600);
+  --action-urgent-hover: #83501F;
+
+  /* Feedback */
+  --feedback-success-fg: var(--green-600);
+  --feedback-success-bg: var(--green-50);
+  --feedback-warning-fg: var(--amber-600);
+  --feedback-warning-bg: var(--amber-50);
+  --feedback-danger-fg:  var(--red-600);
+  --feedback-danger-bg:  var(--red-50);
+  --feedback-info-fg:    var(--blue-700);
+  --feedback-info-bg:    var(--blue-50);
+
+  --focus-ring: var(--shadow-focus);
+
+  /* ---------------------------------------------------------------------
+     3. COMPONENT TOKENS
+     --------------------------------------------------------------------- */
+
+  --button-height-sm: 2.25rem;  /* 36 */
+  --button-height-md: 2.875rem; /* 46 */
+  --button-height-lg: 3.5rem;   /* 56 — primary CTA, thumb-safe on mobile */
+  --button-padding-x-sm: var(--space-4);
+  --button-padding-x-md: var(--space-6);
+  --button-padding-x-lg: var(--space-8);
+  --button-radius: var(--radius-sm);
+  --button-font: var(--font-display);
+  --button-weight: var(--weight-semibold);
+  --button-tracking: 0.01em;
+
+  --input-height: 3rem; /* 48 */
+  --input-padding-x: var(--space-4);
+  --input-radius: var(--radius-sm);
+  --input-border: var(--border-default);
+  --input-border-focus: var(--blue-600);
+  --input-bg: var(--white);
+  --input-placeholder: var(--silver-500);
+
+  --card-radius: var(--radius-lg);
+  --card-padding: var(--space-8);
+  --card-bg: var(--surface-raised);
+  --card-border: var(--border-subtle);
+  --card-shadow: var(--shadow-sm);
+  --card-shadow-hover: var(--shadow-md);
+  --card-lift: -4px;
+
+  --nav-height: 5rem;         /* 80 */
+  --nav-height-scrolled: 4rem;/* 64 */
+  --nav-bg: rgba(255,255,255,.92);
+  --nav-border: var(--border-subtle);
+
+  --badge-radius: var(--radius-full);
+  --badge-padding: var(--space-1) var(--space-3);
+  --badge-font-size: var(--text-xs);
+
+  --accordion-border: var(--border-subtle);
+  --accordion-padding-y: var(--space-5);
+
+  --media-radius: var(--radius-lg);
+  --media-ratio-wide: 16 / 9;
+  --media-ratio-project: 4 / 3;
+  --media-ratio-portrait: 3 / 4;
+}
+
+/* Respect reduced-motion — the audience skews 45–65 and browses on tablets. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-base: 0ms;
+    --duration-slow: 0ms;
+    --duration-slower: 0ms;
+  }
+}

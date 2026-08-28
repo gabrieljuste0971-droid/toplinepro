@@ -1,0 +1,607 @@
+# Seam & Slate
+
+**Design system da TopLine Pro Construction**
+Versão 0.4 · 27/08/2026
+
+---
+
+## O que é
+
+O sistema visual da TopLine Pro Construction — empresa familiar de roofing e serviços
+exteriores sediada em Amherst (NH), com 16 anos de mercado e especialidade em standing
+seam metal roofing fabricado na própria obra.
+
+O nome vem das duas superfícies da empresa: a **costura** (*seam*) do painel metálico,
+que é o diferencial técnico e comercial, e a **ardósia** (*slate*), o cinza-azulado que
+sustenta tudo.
+
+A v0.4 é uma mescla deliberada. A **cor é nossa** — sai por amostragem de pixel do
+arquivo do logotipo e obedece ao briefing da cliente. A **forma, a tipografia, os
+controles, o ritmo e o movimento vieram do Ironwood**, sistema de referência extraído do
+template Framer *Ironwood — Custom Home Builders & Design-Build*.
+
+---
+
+## Arquivos
+
+| Arquivo | Conteúdo |
+|---|---|
+| `tokens.css` | Variáveis CSS em duas camadas: primitivo e semântico. É o arquivo que o site consome. |
+| `tokens.json` | Os mesmos valores em formato de dados, para Figma Tokens, Style Dictionary ou Tailwind. |
+| `DESIGN-SYSTEM.md` | Este documento. A especificação completa. |
+| `seam-and-slate.html` | Documento visual com espécimes vivos de todos os componentes. |
+| `marca-em-campo.html` | Direção criativa das aplicações físicas: placa, caminhonete, cartão, orçamento, uniforme. |
+| `ironwood-ref/` | O sistema de referência extraído, namespaced em `--ref-*`. Não é consumido em produção; serve de origem documentada. |
+| `tokens.v03.css.bak` | Backup da versão anterior, antes da mescla. |
+
+---
+
+## Procedência
+
+A tabela abaixo existe para que ninguém precise adivinhar de onde saiu cada decisão.
+
+| Camada | Origem | Estado |
+|---|---|---|
+| **Cor** | Nossa | Intocada. Rampa ancorada em três pixels do logotipo. |
+| **Tema** | Nosso | Claro, único. Sem versão escura, por exigência do briefing. |
+| **Atmosfera** | Nossa | Luz fria, grão de 3,2%, costura vertical a cada 32px. |
+| **Display** | Ironwood | Cabinet Grotesk 800, caixa alta, `-0.02em`. |
+| **Texto** | Ironwood | Geist. Corpo elevado de 16px para 17px. |
+| **Raio** | Ironwood | 4px em tudo. A escala anterior de 3/6/10/16/24 foi descartada. |
+| **Elevação** | Ironwood | Sombra removida. Profundidade vem de bloco de cor e filete de 1px. |
+| **Controles** | Ironwood | 44px e 40px, chip de ícone de 32px, hover por opacidade. |
+| **Ritmo** | Ironwood | Seção 120px no topo e 160px embaixo. Container 1340 com goteira de 50. |
+| **Movimento** | Ironwood | 400ms, `cubic-bezier(.12,.23,.5,1)`, blur de 8px, cascata de 75ms. |
+| **Link** | Ironwood | Nunca colorido. Sublinhado, herdando a cor do texto. |
+
+### O que não veio junto do Ironwood
+
+- O amber `#f7b74a` e todo o neutro quente (`#171614`, `#f5f3ee`, `#54504a`).
+- O rodapé escuro e o input de vidro sobre fundo escuro.
+- O scrim escuro sobre fotografia — aqui o scrim é branco.
+- Plus Jakarta Sans nos campos de formulário. Campo usa Geist, como o resto.
+
+---
+
+## Como usar
+
+```html
+<link rel="stylesheet" href="design-system/tokens.css">
+
+<!-- Display: Fontshare. Livre para uso comercial, mas verifique a licença. -->
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@500,700,800&display=swap">
+
+<!-- Texto e dado: Google Fonts. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+```
+
+Consuma sempre os tokens semânticos (`--action-block`, `--text-muted`), nunca os
+primitivos (`--blue-400`) direto na interface. Trocar a marca de tom depois vira uma
+edição de dez linhas em vez de uma varredura no projeto inteiro.
+
+> **Aviso sobre a Cabinet Grotesk.** Ela é da Fontshare, não do Google Fonts. Em ambientes
+> com Content Security Policy restrita a `fonts.googleapis.com` — o caso dos artifacts do
+> Claude — ela é bloqueada e cai silenciosamente para o fallback. A pilha declarada em
+> `--font-display` é `"Cabinet Grotesk", "Archivo", sans-serif`: a Archivo tem eixo
+> variável de largura e, em `wdth 96`, aproxima a caixa alta pesada e apertada da Cabinet.
+> Para produção no site da TopLine, carregue a Cabinet Grotesk normalmente.
+
+---
+
+## Cor
+
+Camada intocada desde a v0.1. Os três tons-âncora do azul saem por amostragem direta de
+pixel do PNG do logotipo.
+
+### Rampa do azul
+
+| Token | Valor | Papel |
+|---|---|---|
+| `--blue-50` | `#F2F8FD` | Fundo de código, tinta de bloco leve |
+| `--blue-100` | `#DCEDF9` | |
+| `--blue-200` | `#BCDCF3` | Estado desabilitado |
+| `--blue-300` | `#9BCBEE` | |
+| `--blue-400` | `#7BBDEC` | **Âncora — topo do degradê do logotipo.** Bloco de CTA |
+| `--blue-500` | `#5A9BCE` | |
+| `--blue-600` | `#3F7CAC` | **Âncora — meio do degradê.** Borda de foco |
+| `--blue-700` | `#2F6088` | Código, ênfase secundária |
+| `--blue-800` | `#254A6A` | **Âncora — base do degradê** |
+| `--blue-900` | `#16324A` | Tinta de marca, bloco escuro, filete |
+
+### Rampa da prata
+
+| Token | Valor | Papel |
+|---|---|---|
+| `--silver-50` | `#FAFBFC` | |
+| `--silver-100` | `#F1F4F7` | Seção alternada — o "bone" do Ironwood, na nossa temperatura |
+| `--silver-200` | `#E4E9ED` | |
+| `--silver-300` | `#CFD5DA` | Borda de controle |
+| `--silver-400` | `#B2BAC1` | |
+| `--silver-500` | `#8E979F` | Placeholder |
+| `--silver-600` | `#62707B` | Texto secundário (5,09:1 sobre branco) |
+| `--silver-700` | `#44525E` | Corpo (8,03:1 sobre branco) |
+| `--silver-800` | `#31373C` | |
+| `--silver-900` | `#101922` | Título e corpo primário (17,73:1) |
+
+O cinza é levemente frio, puxado para o azul da marca. Cinza neutro puro fica sujo ao
+lado do azul; o neutro quente do Ironwood brigaria com ele.
+
+### Tokens semânticos
+
+| Token | Valor | Uso |
+|---|---|---|
+| `--surface-page` | `#FFFFFF` | Fundo padrão |
+| `--surface-alt` | `--silver-100` | Seção alternada |
+| `--surface-raised` | `#FFFFFF` | Card, painel, campo |
+| `--surface-brand` | `--blue-50` | Bloco de destaque leve |
+| `--surface-invert` | `--blue-900` | **Exceção.** Ver abaixo |
+| `--text-primary` | `--silver-900` | Título e corpo |
+| `--text-body` | `--silver-700` | Parágrafo |
+| `--text-muted` | `--silver-600` | Legenda, meta, especificação |
+| `--line` | `#DDE4EA` | Filete de 1px |
+| `--action-block` / `--action-on-block` | `--blue-400` / `--blue-900` | Bloco de CTA |
+| `--action-dark` / `--action-on-dark` | `--blue-900` / `#FFFFFF` | Botão escuro |
+| `--action-light` / `--action-on-light` | `#FFFFFF` / `--blue-900` | Botão sobre foto |
+| `--action-soft` | `--blue-200` | Desabilitado |
+| `--action-urgent` | `--copper-600` `#9A5F32` | Só emergência de neve e gelo |
+
+### O bloco de ação
+
+No Ironwood o amber é um bloco claro e saturado com rótulo escuro por cima. Ele não
+contrasta com o fundo branco — contrasta pela forma. O azul-céu faz exatamente o mesmo
+papel:
+
+```css
+background: var(--action-block);   /* #7BBDEC */
+color:      var(--action-on-block);/* #16324A — 6,50:1 */
+```
+
+O `#7BBDEC` **reprova para texto sobre branco** (2,03:1). Ele só existe como bloco, como
+filete e como anel de foco. Quem carrega texto é o navy.
+
+### Dominância 80 · 12 · 8
+
+80% claro e prata, 12% navy, 8% azul-céu — **medido por área ocupada na tela**, não por
+número de cores na paleta.
+
+Navy é **tinta e filete**, nunca superfície: texto, borda de 3 a 14px, lateral de
+destaque. Duas exceções de superfície escura existem, ambas por motivo físico e não
+estético, e estão documentadas em `marca-em-campo.html`:
+
+1. **Placa de jardim de inverno** — contra neve acumulada, peça clara desaparece.
+2. **Colete da equipe** — mesma razão.
+
+### Tema único claro
+
+O briefing marcou **"Cores Claras"** e deixou **"Cores Escuras"** desmarcada. Isso é
+levado ao pé da letra: **não existe tema escuro**. Não há bloco
+`@media (prefers-color-scheme: dark)` nem `[data-theme="dark"]` no projeto, e as páginas
+não seguem a preferência do sistema operacional do visitante — renderizam claras em
+qualquer contexto.
+
+### Contraste verificado
+
+| Combinação | Razão | Resultado |
+|---|---|---|
+| `#101922` sobre `#FFFFFF` | 17,73:1 | AAA |
+| `#44525E` sobre `#FFFFFF` | 8,03:1 | AAA |
+| `#62707B` sobre `#FFFFFF` | 5,09:1 | AA |
+| `#62707B` sobre `#F1F4F7` | 4,61:1 | AA (limite) |
+| `#16324A` sobre `#FFFFFF` | 13,2:1 | AAA |
+| `#16324A` sobre `#7BBDEC` | 6,50:1 | AA (bloco de CTA) |
+| `#FFFFFF` sobre `#16324A` | 13,2:1 | AAA |
+| `#7BBDEC` sobre `#FFFFFF` | 2,03:1 | **Reprova.** Nunca como texto |
+
+---
+
+## Tipografia
+
+Três papéis, três fontes.
+
+| Papel | Fonte | Token | Uso |
+|---|---|---|---|
+| Display | Cabinet Grotesk (fallback Archivo) | `--font-display` | Título, sempre em caixa alta |
+| Texto | Geist | `--font-body` | Corpo, botão, rótulo, campo |
+| Dado | IBM Plex Mono | `--font-mono` | Bitola, perfil, garantia, telefone, token |
+
+O mono é a única adição nossa à estrutura de duas fontes do Ironwood. Ele carrega o
+vocabulário técnico da empresa — `24ga Galvalume`, `1.75in mechanical lock`,
+`25 anos` — e é o que dá credibilidade de fabricante, não de vendedor.
+
+### Escala
+
+Medida a 1440px de viewport, herdada do Ironwood.
+
+| Token | Tamanho | Peso | Entrelinha | Tracking | Caixa |
+|---|---|---|---|---|---|
+| `--text-h1` | 72px | 800 | 1.2 | `-0.02em` | ALTA |
+| `--text-h2` | 54px | 700 | 1.2 | `-0.02em` | ALTA |
+| `--text-h3` | 36px | 700 | 1.3 | `-0.04em` | normal |
+| `--text-h4` | 24px | 700 | 1.0 | 0 | normal |
+| `--text-lead` | 24px | 400 | 1.4 | `-0.01em` | normal |
+| `--text-h5` | 20px | 500 | 1.5 | 0 | normal |
+| `--text-lg` | 18px | 400 | 1.5 | 0 | normal |
+| `--text-md` | 17px | 400 | 1.5 | 0 | normal |
+| `--text-sm` | 14px | 400/500 | 1.5 | 0 | normal |
+| `--text-xs` | 12px | 500 | 1.5 | `0.12em` | ALTA |
+
+Duas observações sobre a escala:
+
+**O h3 é mais apertado que o h1.** `-0.04em` contra `-0.02em`. Não é erro de extração —
+o Ironwood faz isso de propósito, e o efeito é que o h3 ganha densidade sem ganhar
+tamanho.
+
+**O corpo subiu de 16px para 17px** em relação à origem, e não reduz no celular. O
+público tem 45–65 anos; quem não consegue ler não aumenta o zoom, desiste.
+
+### Caixa alta é a assinatura
+
+`--case-display: uppercase`. Todo h1 e h2 vão em caixa alta. É o que dá peso à página sem
+precisar de cor forte — e é exatamente o que permite manter a dominância 80/12/8.
+
+Medida de linha: **58 a 68 caracteres**. Título sempre com `text-wrap: balance`. Parágrafo
+nunca centralizado.
+
+---
+
+## Espaço e layout
+
+Base 8px, mas o ritmo de seção é muito maior.
+
+| Token | Valor | Uso |
+|---|---|---|
+| `--space-1` … `--space-8` | 4, 8, 12, 16, 20, 24, 32px | Espaçamento interno |
+| `--space-12` | 48px | Gap de cabeçalho para conteúdo |
+| `--space-14` | 56px | **Gap interno dominante de seção** |
+| `--space-20` | 80px | Padding de seção curta |
+| `--space-30` | 120px | Padding superior padrão de seção |
+| `--space-40` | 160px | Padding inferior padrão de seção |
+
+| Token | Valor |
+|---|---|
+| `--container` | 1340px |
+| `--container-max` | 1600px |
+| `--measure` | 860px (prosa centralizada, depoimento) |
+| `--gutter` | 50px |
+| `--grid-columns` | 6 |
+| `--grid-pitch` | 223px |
+
+A régua de 6 colunas de 1px em `--line` corre **atrás** de seções inteiras. É decoração,
+não um container de grade real — não posicione conteúdo nela.
+
+```css
+.section { padding: var(--section-pad); }        /* 120px 0 160px */
+.section--sm { padding: var(--section-pad-sm); } /* 80px 0 160px  */
+```
+
+---
+
+## Forma e elevação
+
+**Um raio, no site inteiro.**
+
+| Token | Valor | Uso |
+|---|---|---|
+| `--radius-xs` | 2px | Só código inline |
+| `--radius` | **4px** | Botão, card, imagem, chip, input, nav, tabela |
+| `--radius-dot` | 10px | Só ponto de carrossel |
+| `--radius-full` | 999px | Só o ponto de 5px dentro do badge |
+
+**Elevação: quase nenhuma.** Profundidade vem de bloco de cor achatado e de filete de 1px,
+não de sombra.
+
+| Token | Valor | Uso |
+|---|---|---|
+| `--shadow-none` | `none` | O padrão |
+| `--shadow-sm` | `0 2px 4px rgba(22,50,74,.15)` | Raro |
+| `--shadow-lift` | sombra em três camadas | Só elemento flutuante real |
+
+Quando usar sombra, ela é tingida de navy — nunca preto neutro. Sobre fundo claro e frio,
+sombra preta fica acinzentada e barata.
+
+---
+
+## Controles
+
+### Botão
+
+| Token | Valor |
+|---|---|
+| `--control-h` | 44px — CTA de página |
+| `--control-h-sm` | 40px — nav, secundário, botão de ícone |
+| `--control-pad` | `8px 20px` |
+| `--control-pad-icon` | `6px 6px 6px 12px` |
+| `--control-gap` | 12px |
+| `--icon-chip` | 32px |
+| `--icon` | 24px |
+
+A assimetria do padding com ícone existe porque a seta mora num chip quadrado de 32px
+dentro do botão de 44px.
+
+| Variante | Fundo | Rótulo | Chip do ícone |
+|---|---|---|---|
+| `block` | `#7BBDEC` | `#16324A` | navy com seta branca |
+| `dark` | `#16324A` | branco | céu com seta navy |
+| `light` | branco | `#16324A` | navy com seta branca |
+| `urgent` | `#9A5F32` | branco | — |
+| desabilitado | `#BCDCF3` | `#8E979F` | — |
+
+**Estados.** Hover é **opacidade 0.8** e a seta gira exatos **45°**. Não há mudança de
+cor, não há elevação, não há deslocamento. São as duas únicas micro-interações do
+sistema.
+
+**Texto de botão** é sempre verbo + objeto: *Get a free estimate*, *Book a consultation*.
+Nunca *Saiba mais*. Uma ação primária por tela.
+
+### Campo
+
+| Propriedade | Valor |
+|---|---|
+| Altura | 44px (`--input-h` 41px na variante compacta do rodapé) |
+| Padding | 12px |
+| Borda | 1px `--line` |
+| Raio | 4px |
+| Foco | `outline: 2px solid #7BBDEC; outline-offset: 2px` |
+| Fonte | Geist 16px |
+
+Input, select e textarea compartilham borda, raio e anel de foco — sem exceção. Rótulo
+sempre visível acima do campo; placeholder nunca substitui rótulo. Checkbox e radio em
+20px com `accent-color: var(--blue-700)`. Mensagem de erro diz **como corrigir**, não
+repete o problema.
+
+### Link
+
+Nunca colorido. Sublinhado, `text-underline-offset: 3px`, herdando a cor do texto. Isso
+tira azul da tela e ajuda a segurar a dominância.
+
+---
+
+## Marcadores
+
+### Badge
+
+O olho-mágico acima de todo título de seção. Bloco de 4px, micro-rótulo em caixa alta com
+`0.04em`, e um ponto de 5px na frente em `currentColor`.
+
+```css
+padding: 8px 14px;
+background: var(--action-block);
+color: var(--action-on-block);
+font-size: 14px; font-weight: 500;
+text-transform: uppercase; letter-spacing: .04em;
+```
+
+Variante `--dark` inverte para navy com texto branco.
+
+### Chip
+
+Rótulo de categoria em card e sobre imagem. Padding `6px 8px`, fundo `--surface-alt`, ou
+branco quando pousa sobre foto.
+
+### Step
+
+Marcador numerado de processo (`01.` `02.` `03.`), largura mínima de 46px, fonte display
+em 20px. Conectado pelo `step-connector`: um filete **tracejado** em azul-céu.
+
+Use numeração só quando a ordem carrega informação real — um processo de obra, uma
+sequência de etapas. Não como decoração.
+
+### Ponto de carrossel
+
+Inativo é um círculo de 10px com 25% de opacidade. O ativo **estica** para uma pílula de
+28px com opacidade cheia, animando a largura.
+
+---
+
+## Card, nav e superfícies
+
+### Card
+
+Plano. Imagem em raio de 4px, texto abaixo, **sem caixa em volta, sem borda, sem sombra**.
+O card é a imagem mais o tipo.
+
+```
+media    aspect-ratio 4/3, radius 4px, object-fit cover
+title    display, 20px, 700
+body     Geist, 16px, 1.5, --text-body
+spec     mono, 13px, --text-muted     ← nossa adição
+```
+
+A linha `spec` em mono é a adição da TopLine: onde um sistema comum colocaria ícone, este
+coloca especificação técnica — `Galvalume · aluminum · copper`. O briefing vetou
+ilustração, então a informação ocupa o lugar do desenho.
+
+Variante `card--block`: um tile inteiro preenchido de azul-céu no lugar da imagem. No
+máximo um por grade.
+
+### Nav
+
+Barra de 73px, inset de 20px da viewport, raio de 4px. Transparente sobre o herói,
+preenchida de navy ao rolar. Link em 16px peso 500 com opacidade 0.85, subindo para 1 no
+hover.
+
+### Herói
+
+Scrim **branco** em diagonal, de 95% a 0 da esquerda para a direita. O texto fica em navy
+sobre claro (13,2:1) e o telhado continua visível à direita. É a leitura mais confortável
+para o público de 45–65 anos e é o que respeita "Cores Claras".
+
+Costura de 1px a cada 34px sobre a foto, a 5% de opacidade. Título em no máximo duas
+linhas no desktop.
+
+---
+
+## Movimento
+
+### Curvas
+
+| Token | Valor | Uso |
+|---|---|---|
+| `--ease-reveal` | `cubic-bezier(.12,.23,.5,1)` | **A curva assinatura.** Todo reveal |
+| `--ease-standard` | `cubic-bezier(.4,0,.2,1)` | Transição de UI |
+| `--ease-glide` | `cubic-bezier(.25,.1,.25,1)` | Deslize de carrossel |
+
+### Durações
+
+| Token | Valor | Uso |
+|---|---|---|
+| `--dur-fast` | 150ms | Transform em micro-interação |
+| `--dur-quick` | 200ms | Opacidade em micro-interação |
+| `--dur-base` | 250ms | Transição padrão de UI |
+| `--dur-mid` | 300ms | Fundo e cor de borda |
+| `--dur-reveal` | **400ms** | Toda revelação |
+| `--stagger` | 75ms | Atraso entre palavras e entre cards |
+| `--delay-enter` | 400ms | Primeira palavra do herói |
+| `--blur-enter` | 8px | Estado inicial de todo reveal |
+
+### O reveal palavra a palavra
+
+A assinatura do sistema. O título é dividido em um `<span>` por palavra e cada um roda
+duas animações em paralelo: opacidade de `0.001` para `1` e filtro de `blur(8px)` para
+`blur(0)`. 400ms, curva de reveal, cascata de 75ms.
+
+```html
+<h1 class="reveal-words">
+  <span style="--i:0">SEAM</span>
+  <span style="--i:1">&amp;</span>
+  <span style="--i:2">SLATE</span>
+</h1>
+```
+
+```css
+.reveal-words > * {
+  display: inline-block;
+  opacity: .001;
+  filter: blur(8px);
+  animation: word-in var(--dur-reveal) var(--ease-reveal) both;
+  animation-delay: calc(var(--delay-enter) + var(--i,0) * var(--stagger));
+}
+```
+
+Roda **uma vez, na carga**. Não há micro-animação espalhada pelo resto da página — é
+isso que faz um site parecer nervoso.
+
+### Revelação ao rolar
+
+Quatro pré-estados, mesma duração e mesma curva, disparados por `IntersectionObserver`:
+
+| Nome | Estado inicial |
+|---|---|
+| `rise-lg` | `translateY(30px) scale(.8)` |
+| `rise-md` | `translateY(10px) scale(.9)` |
+| `rise-sm` | `translateY(8px) scale(.9)` |
+| `rise-left` | `translate(-24px, 30px) scale(.9)` |
+
+Grade de cards usa a mesma cascata de 75ms do título.
+
+### Redução de movimento
+
+`prefers-reduced-motion: reduce` zera todas as durações, o blur e a cascata, e entrega
+tudo visível no primeiro quadro. Não é opcional: metade do público passa dos 55 anos.
+
+---
+
+## Responsivo
+
+| Padrão | Desktop | Celular |
+|---|---|---|
+| Herói | Grade 7/5, foto sangrando | `display: flex` em coluna — nunca grade com célula vazia |
+| Grade de serviços | 3 colunas | 1 coluna, card em largura total |
+| Formulário | 3 campos lado a lado | Empilhado, botão em `width: 100%` |
+| Lista longa (14 serviços) | Grade | Acordeão por categoria — nunca rolagem horizontal |
+| Faixa de confiança | 4 colunas em linha | 2 colunas, texto centralizado |
+| Navegação | Menu horizontal | Sheet lateral + botão fixo de orçamento no rodapé |
+
+### Pontos de quebra
+
+| Token | Valor | O que acontece |
+|---|---|---|
+| `--bp-md` | 1200px | Recolhe trilho lateral |
+| — | 980px | Grade vira coluna |
+| `--bp-sm` | 810px | Celular pleno |
+| — | 480px | Espaçamento compacto |
+
+### Tipo no celular
+
+```
+--text-h1:    72 → 40px
+--text-h2:    54 → 32px
+--text-h3:    36 → 24px
+--text-lead:  24 → 19px
+--text-md:    17px — não reduz
+--gutter:     50 → 20px
+--space-30:  120 → 80px
+--space-40:  160 → 80px
+```
+
+Alvo de toque mínimo de 48×48px, com 12px entre alvos vizinhos.
+
+---
+
+## Regras que não se negociam
+
+1. **Não existe tema escuro.** Nenhum `@media (prefers-color-scheme: dark)`, nenhum
+   `[data-theme="dark"]`.
+2. **Navy é tinta e filete, nunca superfície de seção.** Duas exceções físicas, ambas
+   documentadas.
+3. **Fundo de seção nunca é `#FFFFFF` chapado** — sempre com atmosfera.
+4. **Um raio: 4px.** Se um componente novo pede outro valor, o componente está errado.
+5. **`#7BBDEC` nunca é cor de texto.** Só bloco, filete e foco.
+6. **Uma ação primária por tela.** Texto de botão é verbo + objeto.
+7. **Rótulo de campo sempre visível acima do campo.** Placeholder não é rótulo.
+8. **Link é sublinhado, não colorido.**
+9. **Display sempre em caixa alta.**
+10. **Foco de teclado sempre visível.**
+11. **Sem ilustração, ícone desenhado, mascote ou elemento de desenho.** Vetado no
+    briefing. Onde caberia um ícone, entra a linha mono de especificação ou a foto da obra.
+12. **Sem cor vibrante ou saturada.** Cobre `#9A5F32` isolado, só para emergência de
+    inverno — não é cor de marca.
+13. **`prefers-reduced-motion` zera a sequência inteira.**
+
+---
+
+## Checklist de entrega
+
+Rodar antes de fechar qualquer tela. Se um item falhar, a tela não sai.
+
+**Qualidade visual**
+- [ ] Fundo claro com atmosfera — nunca `#FFFFFF` chapado, nunca superfície escura
+- [ ] Dominância 80/12/8; navy só como tinta e filete; céu abaixo de 8%
+- [ ] Raio de 4px em todo componente
+- [ ] Nenhuma sombra fora das três documentadas
+- [ ] Uma ação primária por tela
+- [ ] Display em caixa alta, com salto real de escala para o corpo
+
+**Formulário**
+- [ ] Input, select e textarea com a mesma borda, raio e foco
+- [ ] Rótulo visível acima do campo
+- [ ] Checkbox e radio visíveis, 20px, com `accent-color`
+- [ ] Opção de select legível em fundo sólido
+- [ ] Mensagem de erro diz como corrigir
+
+**Responsivo**
+- [ ] Herói vira `flex` em coluna, sem célula vazia
+- [ ] Toda grade colapsa para 1 coluna em 768px
+- [ ] Lista longa vira acordeão, nunca rolagem horizontal
+- [ ] Corpo permanece em 17px
+- [ ] Alvo de toque de 48px, botão principal em largura total
+
+**Acessibilidade**
+- [ ] Texto em 4,5:1, controle em 3:1 (WCAG AA)
+- [ ] Foco de teclado sempre visível
+- [ ] HTML semântico: `nav`, `main`, `section`, `article`
+- [ ] Texto alternativo em toda foto de obra
+- [ ] `prefers-reduced-motion` zera a sequência
+
+---
+
+## Pendências
+
+| Item | Impacto |
+|---|---|
+| **Logotipo em vetor (SVG/AI/EPS)** | Trava 8 das 10 peças de aplicação. Só existe PNG de 3240px. Sem vetor, cada fornecedor redesenha por cima e a marca muda sozinha entre a placa e a camiseta. Também não há favicon. |
+| **Fotos dos donos e da máquina Englert** | O briefing marcou "fotos pessoais" e o maior diferencial da empresa não tem imagem própria. |
+| **Depoimentos e lista de cidades atendidas** | Prova social e SEO local. |
+| **Telefone real** | Todas as peças estão com `(603) 000-0000`. Substituir antes de qualquer produção. |
+| **Licença da Cabinet Grotesk** | Livre para uso comercial pela Fontshare, mas confirmar antes de publicar o site. |
+| **Duas referências de design a mais** | O briefing pedia no mínimo três; veio uma (safehomeroofs.com). |

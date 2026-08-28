@@ -1,0 +1,349 @@
+/* ==========================================================================
+   Component shapes extracted from construction-visuvate.framer.website
+   Every value here was measured off the live DOM, not eyeballed.
+   Requires tokens.css and motion.css.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   BUTTONS
+   One radius (4px) for the entire site. No shadows. No borders. Two heights:
+   44px for in-page CTAs, 40px for nav + secondary + icon buttons.
+   The trailing arrow lives in its own 32px square chip inside the 44px pill,
+   which is why the padding is asymmetric (6px 6px 6px 12px).
+   -------------------------------------------------------------------------- */
+.ref-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ref-control-gap);
+  height: var(--ref-control-h);
+  padding: var(--ref-control-pad);
+  border: 0;
+  border-radius: var(--ref-radius);
+  font-family: var(--ref-font-body);
+  font-size: var(--ref-text-md);
+  font-weight: var(--ref-fw-medium);
+  line-height: 1;
+  letter-spacing: var(--ref-ls-normal);
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity var(--ref-dur-quick) var(--ref-ease-standard),
+              background-color var(--ref-dur-mid) var(--ref-ease-standard);
+}
+.ref-btn:hover { opacity: .8; }
+
+/* Primary — amber block, dark label. This is the hero CTA. */
+.ref-btn--primary { background: var(--ref-accent); color: var(--ref-ink); }
+
+/* Dark — used for "Learn More", "View All Blogs", "Read More". */
+.ref-btn--dark { background: var(--ref-ink); color: var(--ref-white); }
+
+/* Light — used on photography and in the nav over the hero. */
+.ref-btn--light { background: var(--ref-white); color: var(--ref-ink); }
+
+/* Sizes */
+.ref-btn--sm { height: var(--ref-control-h-sm); }
+
+/* CTA with a trailing icon chip: shrink the right padding, add the chip. */
+.ref-btn--icon { padding: var(--ref-control-pad-icon); }
+.ref-btn__icon {
+  display: grid;
+  place-items: center;
+  width: var(--ref-icon-chip);
+  height: var(--ref-icon-chip);
+  border-radius: var(--ref-radius);
+  background: var(--ref-ink);
+  color: var(--ref-white);
+}
+.ref-btn--dark  .ref-btn__icon { background: var(--ref-accent); color: var(--ref-ink); }
+.ref-btn--light .ref-btn__icon { background: var(--ref-ink);    color: var(--ref-white); }
+.ref-btn__icon svg { width: var(--ref-icon); height: var(--ref-icon); }
+
+/* Square icon button — carousel arrows, 40x40, same 4px radius. */
+.ref-icon-btn {
+  display: grid;
+  place-items: center;
+  width: var(--ref-control-h-sm);
+  height: var(--ref-control-h-sm);
+  border: 0;
+  border-radius: var(--ref-radius);
+  background: var(--ref-accent);
+  color: var(--ref-ink);
+  cursor: pointer;
+}
+.ref-icon-btn--dark     { background: var(--ref-ink); color: var(--ref-white); }
+.ref-icon-btn[disabled],
+.ref-icon-btn--disabled { background: var(--ref-accent-soft); cursor: default; }
+
+/* Text link with an inline arrow — always underlined, never coloured. */
+.ref-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ref-space-1);
+  color: inherit;
+  font-weight: var(--ref-fw-medium);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   BADGE — the eyebrow above every section headline.
+   Amber block, dark uppercase micro-label, leading dot, 4px radius.
+   -------------------------------------------------------------------------- */
+.ref-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ref-space-2);
+  padding: 8px 14px;
+  border-radius: var(--ref-radius);
+  background: var(--ref-accent);
+  color: var(--ref-ink);
+  font-family: var(--ref-font-body);
+  font-size: var(--ref-text-sm);
+  font-weight: var(--ref-fw-medium);
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.ref-badge::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: var(--ref-radius-full);
+  background: currentColor;
+}
+
+/* --------------------------------------------------------------------------
+   CHIP / TAG — category labels on cards and images.
+   Bone fill on light backgrounds, white fill when it sits on a photo.
+   -------------------------------------------------------------------------- */
+.ref-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 8px;
+  border-radius: var(--ref-radius);
+  background: var(--ref-bone);
+  color: var(--ref-ink);
+  font-family: var(--ref-font-body);
+  font-size: var(--ref-text-sm);
+  font-weight: var(--ref-fw-regular);
+  line-height: 1.2;
+}
+.ref-chip--onmedia { background: var(--ref-white); }
+
+/* Numbered step chip ("01." "02." "03.") from the process section. */
+.ref-step {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 46px;
+  padding: 8px 10px;
+  border-radius: var(--ref-radius);
+  background: var(--ref-bone);
+  color: var(--ref-ink);
+  font-family: var(--ref-font-display);
+  font-size: var(--ref-text-h5);
+  font-weight: var(--ref-fw-medium);
+}
+/* Dashed amber rule connecting the steps. */
+.ref-step-connector {
+  flex: 1;
+  height: 0;
+  border-top: 1px dashed var(--ref-accent);
+}
+
+/* --------------------------------------------------------------------------
+   CARD — flat. Image at 4px radius, text below it, no container box,
+   no border, no shadow. The card IS the image plus type.
+   -------------------------------------------------------------------------- */
+.ref-card { display: flex; flex-direction: column; gap: var(--ref-space-3); }
+.ref-card__media {
+  overflow: hidden;
+  border-radius: var(--ref-radius);
+  aspect-ratio: 4 / 3;
+}
+.ref-card__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ref-card__title {
+  font-family: var(--ref-font-display);
+  font-size: var(--ref-text-h5);
+  font-weight: var(--ref-fw-bold);
+  line-height: var(--ref-lh-body);
+  color: var(--ref-ink);
+}
+.ref-card__body {
+  font-family: var(--ref-font-body);
+  font-size: var(--ref-text-md);
+  line-height: var(--ref-lh-body);
+  color: var(--ref-text-body);
+}
+/* The one accent card: a whole tile filled amber instead of an image. */
+.ref-card--accent {
+  background: var(--ref-accent);
+  border-radius: var(--ref-radius);
+  padding: var(--ref-space-6);
+  color: var(--ref-ink);
+}
+
+/* --------------------------------------------------------------------------
+   NAVBAR — transparent over the hero, then a floating dark pill on scroll.
+   Inset 20px from the viewport, 4px radius, same as everything else.
+   -------------------------------------------------------------------------- */
+.ref-nav {
+  position: fixed;
+  inset: var(--ref-nav-inset) var(--ref-nav-inset) auto;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ref-space-8);
+  height: var(--ref-nav-h);
+  padding: 0 var(--ref-space-5);
+  border-radius: var(--ref-radius);
+  background: transparent;
+  color: var(--ref-white);
+  transition: background var(--ref-dur-mid) var(--ref-ease-standard);
+}
+.ref-nav--scrolled { background: var(--ref-ink); }
+.ref-nav__link {
+  font-family: var(--ref-font-body);
+  font-size: var(--ref-text-md);
+  font-weight: var(--ref-fw-medium);
+  color: currentColor;
+  text-decoration: none;
+  opacity: .85;
+  transition: opacity var(--ref-dur-quick) var(--ref-ease-standard);
+}
+.ref-nav__link:hover { opacity: 1; }
+
+/* --------------------------------------------------------------------------
+   CAROUSEL DOTS — inactive is a 10px circle, active stretches to a 28px pill.
+   -------------------------------------------------------------------------- */
+.ref-dot {
+  width: 10px;
+  height: 10px;
+  border: 0;
+  border-radius: var(--ref-radius-dot);
+  background: var(--ref-ink);
+  opacity: .25;
+  cursor: pointer;
+  transition: width var(--ref-dur-base) var(--ref-ease-standard),
+              opacity var(--ref-dur-base) var(--ref-ease-standard);
+}
+.ref-dot[aria-current="true"] { width: 28px; opacity: 1; }
+
+/* --------------------------------------------------------------------------
+   INPUT — only appears in the dark footer: translucent white fill, no border.
+   -------------------------------------------------------------------------- */
+.ref-input {
+  height: 41px;
+  padding: var(--ref-space-3);
+  border: 0;
+  border-radius: var(--ref-radius);
+  background: var(--ref-glass);
+  color: var(--ref-white);
+  font-family: var(--ref-font-input);
+  font-size: var(--ref-text-sm);
+  line-height: 1.2;
+}
+.ref-input::placeholder { color: rgba(255,255,255,.6); }
+.ref-input:focus { outline: 2px solid var(--ref-accent); outline-offset: 2px; }
+
+/* --------------------------------------------------------------------------
+   LAYOUT PRIMITIVES
+   -------------------------------------------------------------------------- */
+.ref-section { padding: var(--ref-section-pad); }
+.ref-section--sm { padding: var(--ref-section-pad-sm); }
+.ref-section--bone { background: var(--ref-bg-alt); }
+.ref-section--ink  { background: var(--ref-ink); color: var(--ref-white); }
+
+.ref-container {
+  width: min(var(--ref-container), 100% - var(--ref-gutter) * 2);
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ref-space-14);
+}
+.ref-measure { max-width: var(--ref-measure); margin-inline: auto; }
+
+/* The decorative 6-column rule overlay behind sections. */
+.ref-grid-rules {
+  position: relative;
+  isolation: isolate;
+}
+.ref-grid-rules::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--ref-line) 0 var(--ref-grid-line),
+    transparent var(--ref-grid-line) var(--ref-grid-pitch)
+  );
+  background-position: var(--ref-gutter) 0;
+}
+
+/* --------------------------------------------------------------------------
+   TYPE
+   -------------------------------------------------------------------------- */
+.ref-h1 {
+  font-family: var(--ref-font-display);
+  font-size: var(--ref-text-h1);
+  font-weight: var(--ref-fw-display);
+  line-height: var(--ref-lh-display);
+  letter-spacing: var(--ref-ls-display);
+  text-transform: uppercase;
+}
+.ref-h2 {
+  font-family: var(--ref-font-display);
+  font-size: var(--ref-text-h2);
+  font-weight: var(--ref-fw-bold);
+  line-height: var(--ref-lh-display);
+  letter-spacing: var(--ref-ls-display);
+  text-transform: uppercase;
+}
+.ref-h3 {
+  font-family: var(--ref-font-display);
+  font-size: var(--ref-text-h3);
+  font-weight: var(--ref-fw-bold);
+  line-height: var(--ref-lh-heading);
+  letter-spacing: var(--ref-ls-h3);
+}
+.ref-h4 {
+  font-family: var(--ref-font-display);
+  font-size: var(--ref-text-h4);
+  font-weight: var(--ref-fw-bold);
+  line-height: var(--ref-lh-tight);
+}
+.ref-lead {
+  font-family: var(--ref-font-body);
+  font-size: var(--ref-text-lead);
+  font-weight: var(--ref-fw-regular);
+  line-height: var(--ref-lh-lead);
+  letter-spacing: var(--ref-ls-lead);
+  color: var(--ref-text-body);
+}
+.ref-body {
+  font-family: var(--ref-font-body);
+  font-size: var(--ref-text-md);
+  line-height: var(--ref-lh-body);
+  color: var(--ref-text-body);
+}
+.ref-caption {
+  font-family: var(--ref-font-body);
+  font-size: var(--ref-text-sm);
+  line-height: var(--ref-lh-body);
+  color: var(--ref-text-muted);
+}
+
+@media (max-width: 810px) {
+  :root {
+    --ref-text-h1: 36px;
+    --ref-text-h2: 32px;
+    --ref-text-h3: 24px;
+    --ref-gutter: 20px;
+    --ref-space-30: 80px;
+    --ref-space-40: 80px;
+  }
+}

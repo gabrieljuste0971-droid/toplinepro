@@ -1,0 +1,118 @@
+# Seam & Slate — Design System da TopLine Pro Construction
+
+Versão 0.3 · 27/08/2026
+
+Sistema visual inicial derivado de três fontes: o arquivo do logotipo (amostragem
+direta de pixels), a galeria de obras da empresa e o briefing de landing page.
+
+## Arquivos
+
+| Arquivo | O que é |
+|---|---|
+| `tokens.css` | Variáveis CSS em três camadas: primitivo → semântico → componente. É o arquivo que o site consome. |
+| `tokens.json` | Os mesmos tokens em formato de dados, para Figma Tokens, Style Dictionary ou Tailwind. |
+| `seam-and-slate.html` | Documento de referência visual, com espécimes vivos de todos os componentes. |
+
+## O conceito
+
+O nome vem das duas superfícies da empresa: a **costura** (*seam*) do standing seam
+metal, que é a especialidade e o diferencial, e a **ardósia** (*slate*), o cinza-azulado
+que sustenta tudo. Toda a estrutura da página é organizada por linhas verticais finas —
+a mesma lógica de um painel metálico correndo do beiral à cumeeira.
+
+## Decisões e por quê
+
+**Cor.** Os três tons-âncora do azul saem por amostragem do PNG do logotipo:
+`#7BBDEC` (topo do degradê), `#3F7CAC` (meio), `#254A6A` (base). A rampa de 10 passos
+foi construída em volta deles. O cinza é levemente frio, puxado para o azul — cinza
+neutro puro fica sujo ao lado da marca.
+
+**Cor de ação = `#2F6088` (blue-700), não o azul claro da marca.** O `#7BBDEC` tem
+2.03:1 contra branco e reprova em qualquer teste de acessibilidade para texto. Ele
+continua na marca, no filete e no anel de foco; quem carrega botão e link é o 700, com
+6.67:1 (AA).
+
+**Tipografia.** Archivo no display, rodando no eixo variável de largura em `wdth 112`
+(e `118` nas estatísticas) — título largo, com a proporção de uma cumeeira, e a mesma
+construção quadrada do lettering do logotipo. Instrument Sans no texto: humanista, mais
+quente que uma grotesca neutra. IBM Plex Mono no dado — bitola, perfil, anos de garantia,
+token. O corpo é 17px com entrelinha 1.62 e nunca reduz no celular: o público tem 45–65
+anos e não aumenta o zoom, desiste.
+
+**Escala com salto real.** Corpo 17px, display até 96px. Incremento de 1.5x entre níveis
+deixa a página sem hierarquia; o salto entre corpo e display é de mais de 5x.
+
+**Nenhuma superfície é branco chapado.** O fundo tem três camadas, todas abaixo de 6%:
+luz fria no topo (`--wash`), grão de 3.2% em SVG e a costura vertical a cada 32px. É o
+que separa "claro" de "vazio".
+
+**Composição assimétrica.** Grade de 12 colunas com divisões 7/5 no herói, 5/7 invertido
+na seção seguinte e 4/8 na documentação. 6+6 é proibido em seção principal — metade e
+metade não tem hierarquia.
+
+**Uma sequência de carga, e só.** Oito filetes verticais em alturas desiguais descem do
+topo em cascata de 60ms — painel sendo travado no telhado — e depois o conteúdo sobe em
+degraus de 90ms. É o elemento memorável do sistema. Não há micro-animação espalhada pelo
+resto da página; isso é o que faz um site parecer nervoso.
+
+**Claro, e só claro.** O briefing marcou "Cores Claras" e deixou "Cores Escuras"
+desmarcada. Isso é levado ao pé da letra: **não existe tema escuro** e as páginas não
+seguem a preferência de tema do sistema operacional do visitante — renderizam claras em
+qualquer contexto.
+
+**Navy é tinta, não superfície.** O `#16324A` entra como texto, como filete de 3 a 14px e
+como lateral de destaque. Nunca como fundo de seção. Duas exceções documentadas, ambas
+por motivo físico e não estético: a **placa de jardim de inverno** e o **colete da
+equipe** — contra neve acumulada, uma peça clara desaparece.
+
+**Dominância 80 / 12 / 8.** 80% claro e prata, 12% navy, 8% azul-céu, medido por área
+ocupada. Texto branco sobre foto foi trocado por scrim branco com texto navy: 13.2:1 de
+contraste, mais confortável para o público de 45–65 anos e fiel ao briefing.
+
+**Sem ilustração.** Vetado no briefing. Onde um sistema comum colocaria ícone, este
+coloca uma linha de especificação técnica em mono (`Galvalume · aluminum · copper`) ou
+a própria fotografia da obra.
+
+**Sombra tingida de navy**, nunca preto neutro — sobre fundo claro e frio, sombra preta
+fica acinzentada e barata.
+
+## Como usar
+
+```html
+<link rel="stylesheet" href="design-system/tokens.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:wght@400..700&display=swap">
+```
+
+O eixo de largura da Archivo é aplicado por `font-variation-settings`, não por família:
+
+```css
+h1 { font-family: var(--font-display); font-variation-settings: "wdth" 112; }
+.eyebrow { font-variation-settings: "wdth" 88; }
+```
+
+Consuma sempre os tokens semânticos (`--action-primary`, `--text-muted`), nunca os
+primitivos (`--blue-700`) direto na interface. Trocar a marca de tom depois vira uma
+edição de dez linhas em vez de uma varredura no projeto inteiro.
+
+## Regras que não se negociam
+
+- Uma ação primária por tela. Texto de botão é verbo + objeto: *Get a free estimate*.
+- Rótulo de campo sempre visível acima do campo. Placeholder não é rótulo.
+- Texto branco sobre foto exige scrim de 55% ou mais.
+- Foco de teclado sempre visível: `--focus-ring`.
+- `prefers-reduced-motion` zera a sequência inteira e entrega tudo visível no primeiro quadro.
+- Nenhuma seção principal em 6+6. Alterne 7/5 e 5/7.
+- Fundo de seção nunca é `#FFFFFF` chapado — e nunca é escuro.
+- Nenhum bloco `@media (prefers-color-scheme: dark)` nem `[data-theme="dark"]` no projeto.
+- Input, select e textarea com a mesma borda, o mesmo raio e o mesmo anel de foco.
+- Alvo de toque de 48px; no celular o botão principal vai a largura total.
+- Cobre (`#9A5F32`) só para emergência de inverno (neve e ice dam). Não é cor de marca.
+
+## Pendências para fechar a v1
+
+- **Logotipo em vetor (SVG/AI).** Só há PNG 3240px. Necessário para nitidez e para o favicon.
+- **Fotos dos donos e da máquina Englert em operação.** O briefing marcou "fotos pessoais"
+  e o maior diferencial da empresa não tem imagem própria hoje.
+- **Depoimentos de clientes e lista de cidades atendidas** — prova social e SEO local.
+- **Duas referências de design a mais.** O briefing pedia no mínimo três; veio uma
+  (safehomeroofs.com).

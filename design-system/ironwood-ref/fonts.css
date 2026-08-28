@@ -1,0 +1,17 @@
+/* ==========================================================================
+   Fonts used by the reference site. Neither is bundled here — load one of
+   these before tokens.css, or swap the families in tokens.css for your own.
+   Check licensing before shipping.
+   ==========================================================================
+
+   Cabinet Grotesk — Fontshare (Indian Type Foundry), free for commercial use.
+     https://www.fontshare.com/fonts/cabinet-grotesk
+   Geist — Vercel, SIL Open Font License 1.1, also on Google Fonts.
+     https://vercel.com/font
+*/
+
+/* Display */
+@import url("https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@700,800,500&display=swap");
+
+/* Body */
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@400;500;700&display=swap");

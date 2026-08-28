@@ -1,0 +1,152 @@
+/* ==========================================================================
+   Reference tokens extracted from https://construction-visuvate.framer.website/
+   Framer template "Ironwood" — Custom Home Builders & Design-Build
+   Extracted 2026-08-27 via headless Chromium (computed styles + WAAPI capture).
+
+   All tokens are namespaced `--ref-*` so they can coexist with the existing
+   TopLine Pro design system while you port what you want.
+   ========================================================================== */
+
+:root {
+  /* ---------------------------------------------------------------------
+     COLOR — Framer published these as --token-<uuid>; names below are ours.
+     Warm neutral base + a single amber accent. No secondary hue at all.
+     --------------------------------------------------------------------- */
+  --ref-ink:           #171614; /* headings, dark buttons, dark nav pill    */
+  --ref-ink-deep:      #1c1a17; /* footer / deepest surface (token value)   */
+  --ref-ink-footer:    #181614; /* footer as actually painted               */
+
+  --ref-accent:        #f7b74a; /* THE brand colour: CTA, badges, arrows    */
+  --ref-accent-soft:   #f0ce96; /* disabled arrow, tint, dashed connectors  */
+
+  --ref-bone:          #f5f3ee; /* page surface / section bg / step chips   */
+  --ref-white:         #ffffff;
+
+  --ref-text-body:     #54504a; /* paragraph copy (warm grey, not neutral)  */
+  --ref-text-muted:    #a8a298; /* meta, captions, footer secondary         */
+  --ref-border:        #d8d2ca; /* 1px hairlines + the vertical grid rules  */
+
+  /* Semantic aliases */
+  --ref-bg:            var(--ref-white);
+  --ref-bg-alt:        var(--ref-bone);
+  --ref-bg-invert:     var(--ref-ink);
+  --ref-fg:            var(--ref-ink);
+  --ref-fg-muted:      var(--ref-text-body);
+  --ref-fg-subtle:     var(--ref-text-muted);
+  --ref-line:          var(--ref-border);
+
+  /* Overlays observed on media */
+  --ref-scrim:         linear-gradient(90deg, rgba(255,255,255,.30) 0%, rgba(0,0,0,.50) 100%);
+  --ref-glass:         rgba(255,255,255,.20);   /* footer input fill        */
+  --ref-glass-blur:    blur(4px);               /* backdrop-filter          */
+
+  /* ---------------------------------------------------------------------
+     TYPOGRAPHY
+     Display: Cabinet Grotesk (Fontshare) — heavy, tight, UPPERCASE.
+     Body:    Geist (Vercel / Google Fonts) — neutral, calm.
+     Inputs:  Plus Jakarta Sans (Framer form default only).
+     --------------------------------------------------------------------- */
+  --ref-font-display: "Cabinet Grotesk", "Cabinet Grotesk Placeholder", system-ui, sans-serif;
+  --ref-font-body:    "Geist", "Geist Placeholder", system-ui, sans-serif;
+  --ref-font-input:   "Plus Jakarta Sans", var(--ref-font-body);
+
+  /* Sizes as measured on a 1440px viewport */
+  --ref-text-h1:   72px;  /* 4.50rem */
+  --ref-text-h2:   54px;  /* 3.38rem */
+  --ref-text-h3:   36px;  /* 2.25rem */
+  --ref-text-h4:   24px;  /* 1.50rem */
+  --ref-text-lead: 24px;  /* body font, 1.4 lh, -0.24px ls */
+  --ref-text-h5:   20px;  /* 1.25rem */
+  --ref-text-lg:   18px;
+  --ref-text-md:   16px;
+  --ref-text-sm:   14px;
+  --ref-text-xs:   12px;
+
+  --ref-lh-tight:   1.0;   /* h4 */
+  --ref-lh-display: 1.2;   /* h1, h2 */
+  --ref-lh-heading: 1.3;   /* h3 */
+  --ref-lh-lead:    1.4;
+  --ref-lh-body:    1.5;
+
+  --ref-ls-display: -0.02em; /* -1.44px @72, -1.08px @54 */
+  --ref-ls-h3:      -0.04em; /* -1.44px @36 — tighter than h1 on purpose */
+  --ref-ls-lead:    -0.01em;
+  --ref-ls-normal:  0;
+
+  --ref-fw-display: 800;   /* h1 */
+  --ref-fw-bold:    700;   /* h2, h3, h4 */
+  --ref-fw-medium:  500;   /* h5, nav links, captions */
+  --ref-fw-regular: 400;   /* body */
+
+  /* ---------------------------------------------------------------------
+     SPACING — base 8px, but the section rhythm is much larger (80/120/160).
+     --------------------------------------------------------------------- */
+  --ref-space-1:   4px;
+  --ref-space-2:   8px;
+  --ref-space-3:   12px;
+  --ref-space-4:   16px;
+  --ref-space-5:   20px;
+  --ref-space-6:   24px;
+  --ref-space-8:   32px;
+  --ref-space-12:  48px;   /* header-to-content gap */
+  --ref-space-13:  52px;
+  --ref-space-14:  56px;   /* dominant section internal gap */
+  --ref-space-15:  60px;
+  --ref-space-20:  80px;   /* section padding-top (short) */
+  --ref-space-30:  120px;  /* section padding-top (standard) */
+  --ref-space-40:  160px;  /* section padding-bottom (standard) */
+
+  /* ---------------------------------------------------------------------
+     LAYOUT
+     1440 viewport -> 1340 content, i.e. 50px gutters.
+     A 6-column overlay of 1px #d8d2ca rules runs behind whole sections,
+     column pitch ~223px. It is decoration, not a real grid container.
+     --------------------------------------------------------------------- */
+  --ref-container:      1340px;
+  --ref-container-max:  1600px;
+  --ref-measure:        860px;  /* centered prose / testimonial column */
+  --ref-col-secondary:  938px;
+  --ref-gutter:         50px;
+  --ref-grid-columns:   6;
+  --ref-grid-pitch:     223px;
+  --ref-grid-line:      1px;
+
+  --ref-section-pad:    var(--ref-space-30) 0 var(--ref-space-40);
+  --ref-section-pad-sm: var(--ref-space-20) 0 var(--ref-space-40);
+
+  /* Breakpoints observed in the published CSS */
+  --ref-bp-sm:  810px;
+  --ref-bp-md:  1200px;
+
+  /* ---------------------------------------------------------------------
+     RADIUS — the whole site is essentially a single 4px radius.
+     Pills only appear on carousel dots (10px on a 10px box).
+     --------------------------------------------------------------------- */
+  --ref-radius-xs:   2px;
+  --ref-radius:      4px;   /* buttons, cards, images, chips, inputs, nav */
+  --ref-radius-dot:  10px;
+  --ref-radius-full: 999px;
+
+  /* ---------------------------------------------------------------------
+     ELEVATION — almost none. Depth comes from colour blocks, not shadow.
+     --------------------------------------------------------------------- */
+  --ref-shadow-none:  none;
+  --ref-shadow-hair:  inset 0 0 0 1px rgba(0,0,0,1);
+  --ref-shadow-sm:    0 2px 4px rgba(0,0,0,.15);
+  --ref-shadow-lift:  0 .6px 1.57px -1.5px rgba(0,0,0,.17),
+                      0 2.29px 5.95px -3px rgba(0,0,0,.14),
+                      0 10px 26px -4.5px rgba(0,0,0,.02);
+
+  /* ---------------------------------------------------------------------
+     CONTROL SIZES
+     --------------------------------------------------------------------- */
+  --ref-control-h:     44px;  /* primary CTA */
+  --ref-control-h-sm:  40px;  /* nav CTA, secondary, icon buttons */
+  --ref-control-pad:   8px 20px;
+  --ref-control-pad-icon: 6px 6px 6px 12px; /* CTA with trailing icon chip */
+  --ref-control-gap:   12px;
+  --ref-icon-chip:     32px;
+  --ref-icon:          24px;
+  --ref-nav-h:         73px;
+  --ref-nav-inset:     20px;
+}

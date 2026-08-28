@@ -1,0 +1,42 @@
+{
+  "source": {
+    "url": "https://construction-visuvate.framer.website/",
+    "extractedAt": "2026-08-27T23:38:52.598Z",
+    "extractor": "dembrandt"
+  },
+  "colors": {
+    "palette": [],
+    "cssVariables": {}
+  },
+  "typography": {
+    "headingFont": "Cabinet Grotesk",
+    "bodyFont": "Cabinet Grotesk"
+  },
+  "spacing": {
+    "scale": [
+      "1px",
+      "2px",
+      "3px",
+      "4px",
+      "5px",
+      "6px",
+      "8px",
+      "12px",
+      "16px",
+      "20px",
+      "24px",
+      "32px",
+      "50px",
+      "60px",
+      "80px",
+      "120px",
+      "160px"
+    ]
+  },
+  "radius": {
+    "scale": []
+  },
+  "shadows": {
+    "scale": []
+  }
+}
