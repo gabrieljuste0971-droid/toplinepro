@@ -1,0 +1,17 @@
+{
+  "pkg": "topline-pro-design-system",
+  "globalName": "ToplinePro",
+  "shape": "package",
+  "projectId": "c8627413-4a01-49d8-9b67-22bd7dd1ef38",
+  "entry": ".design-sync/ds-entry.mjs",
+  "buildCmd": "node scripts/ds-css-bundle.mjs",
+  "cssEntry": ".design-sync/build/ds-styles.css",
+  "guidelinesGlob": [
+    "design-system/DESIGN-SYSTEM.md",
+    "design-system/README.md"
+  ],
+  "runtimeFontPrefixes": [
+    "Inter"
+  ],
+  "readmeHeader": ".design-sync/conventions.md"
+}
