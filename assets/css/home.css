@@ -665,7 +665,9 @@ p:last-child { margin-bottom: 0; }
 /* Revelação por palavra: o script escreve --p (0 a 1) no parágrafo e cada
    palavra acende dentro da sua fatia. Sem script, --p nasce em 1 e o texto
    aparece cheio — a dobra nunca depende do JS para ser legível. */
-.closer__line { --p: 1; }
+.closer__line {
+  --p: 1;  /* @kind other */
+}
 .rt-word {
   display: inline-block; white-space: pre;
   color: var(--text-primary);
@@ -714,10 +716,18 @@ p:last-child { margin-bottom: 0; }
   animation: chip-float 9s var(--ease-soft) infinite alternate;
 }
 .closer__chip svg { width: 15px; height: 15px; flex: none; color: var(--blue-400); }
-.closer__chip--a { top: 44px;  left: 40px;  --drift: -8px;  animation-delay: -.4s; }
-.closer__chip--b { top: 92px;  right: 44px; --drift: 9px;   animation-delay: -2.6s; }
-.closer__chip--c { bottom: 96px; left: 64px; --drift: 7px;  animation-delay: -4.1s; }
-.closer__chip--d { bottom: 44px; right: 40px; --drift: -9px; animation-delay: -6.2s; }
+.closer__chip--a { top: 44px; left: 40px; animation-delay: -.4s;
+  --drift: -8px;  /* @kind other */
+}
+.closer__chip--b { top: 92px; right: 44px; animation-delay: -2.6s;
+  --drift: 9px;  /* @kind other */
+}
+.closer__chip--c { bottom: 96px; left: 64px; animation-delay: -4.1s;
+  --drift: 7px;  /* @kind other */
+}
+.closer__chip--d { bottom: 44px; right: 40px; animation-delay: -6.2s;
+  --drift: -9px;  /* @kind other */
+}
 @keyframes chip-float {
   from { transform: translateY(calc(var(--drift) * -1)) rotate(calc(var(--drift) * .06deg)); }
   to   { transform: translateY(var(--drift)) rotate(calc(var(--drift) * -.06deg)); }

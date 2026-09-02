@@ -58,16 +58,17 @@
      --blue-900 porque ele vive atrás de foto, não atrás de texto de seção. */
   --ink-950: #0C1B29;
   --ink-900: #12283B;
-  --ink-scrim: 9, 20, 31;   /* componentes RGB, para montar scrim com alpha */
+  /* componentes RGB, para montar scrim com alpha */
+  --ink-scrim: 9, 20, 31;   /* @kind color */
 
-  --gradient-brand: linear-gradient(160deg, var(--blue-400) 0%, var(--blue-800) 100%);
-  --gradient-metal: linear-gradient(160deg, #FFFFFF 0%, #DDE2E6 38%, #9BA3AA 62%, #EDF0F2 100%);
+  --gradient-brand: linear-gradient(160deg, var(--blue-400) 0%, var(--blue-800) 100%);  /* @kind color */
+  --gradient-metal: linear-gradient(160deg, #FFFFFF 0%, #DDE2E6 38%, #9BA3AA 62%, #EDF0F2 100%);  /* @kind color */
 
   /* Atmosfera. Nenhuma superfície clara é branco chapado. */
-  --wash:  radial-gradient(120% 78% at 50% -12%, rgba(123,189,236,.16) 0%, rgba(123,189,236,0) 62%);
-  --seam:  repeating-linear-gradient(90deg, rgba(37,74,106,.055) 0 1px, transparent 1px 32px);
-  --seam-light: repeating-linear-gradient(90deg, rgba(255,255,255,.045) 0 1px, transparent 1px 34px);
-  --grain-opacity: .032;
+  --wash:  radial-gradient(120% 78% at 50% -12%, rgba(123,189,236,.16) 0%, rgba(123,189,236,0) 62%);  /* @kind color */
+  --seam:  repeating-linear-gradient(90deg, rgba(37,74,106,.055) 0 1px, transparent 1px 32px);  /* @kind color */
+  --seam-light: repeating-linear-gradient(90deg, rgba(255,255,255,.045) 0 1px, transparent 1px 34px);  /* @kind color */
+  --grain-opacity: .032;  /* @kind other */
 
   /* ---- Tipografia: Inter, uma família só ----
      Escala fechada. Nenhuma seção inventa tamanho, peso ou entrelinha própria:
@@ -93,40 +94,40 @@
   --text-h5:      var(--text-h4);
 
   /* Entrelinha */
-  --lh-display: 0.98;
-  --lh-h1:      1;
-  --lh-h2:      1.05;
-  --lh-h3:      1.1;
-  --lh-h4:      1.2;
-  --lh-lead:    1.55;
-  --lh-body:    1.6;
-  --lh-sm:      1.5;
-  --lh-ui:      1;
-  --lh-tight:   var(--lh-display);
-  --lh-heading: var(--lh-h3);
+  --lh-display: 0.98;  /* @kind font */
+  --lh-h1:      1;  /* @kind font */
+  --lh-h2:      1.05;  /* @kind font */
+  --lh-h3:      1.1;  /* @kind font */
+  --lh-h4:      1.2;  /* @kind font */
+  --lh-lead:    1.55;  /* @kind font */
+  --lh-body:    1.6;  /* @kind font */
+  --lh-sm:      1.5;  /* @kind font */
+  --lh-ui:      1;  /* @kind font */
+  --lh-tight:   var(--lh-display);  /* @kind font */
+  --lh-heading: var(--lh-h3);  /* @kind font */
 
   /* Tracking */
-  --ls-display: -0.04em;
-  --ls-h1:      -0.035em;
-  --ls-h2:      -0.03em;
-  --ls-h3:      -0.02em;
-  --ls-h4:      -0.015em;
-  --ls-lead:    -0.01em;
-  --ls-body:    -0.005em;
-  --ls-ui:      -0.01em;
-  --ls-badge:    0.06em;
-  --ls-mono:     0.1em;
+  --ls-display: -0.04em;  /* @kind font */
+  --ls-h1:      -0.035em;  /* @kind font */
+  --ls-h2:      -0.03em;  /* @kind font */
+  --ls-h3:      -0.02em;  /* @kind font */
+  --ls-h4:      -0.015em;  /* @kind font */
+  --ls-lead:    -0.01em;  /* @kind font */
+  --ls-body:    -0.005em;  /* @kind font */
+  --ls-ui:      -0.01em;  /* @kind font */
+  --ls-badge:    0.06em;  /* @kind font */
+  --ls-mono:     0.1em;  /* @kind font */
 
   /* Peso. Nada de 700 ou 800: a escala inteira vive em 400, 500 e 600. */
-  --fw-regular: 400;
-  --fw-medium:  500;
-  --fw-semi:    600;
-  --fw-display: var(--fw-medium);
-  --fw-bold:    var(--fw-semi);
+  --fw-regular: 400;  /* @kind font */
+  --fw-medium:  500;  /* @kind font */
+  --fw-semi:    600;  /* @kind font */
+  --fw-display: var(--fw-medium);  /* @kind font */
+  --fw-bold:    var(--fw-semi);  /* @kind font */
 
   /* Caixa do display. Caixa alta continua sendo a assinatura da marca, agora em
      peso 500: pesa pela forma, não pela gordura da letra. */
-  --case-display: uppercase;
+  --case-display: uppercase;  /* @kind font */
 
   /* ---- Espaço: base 8 ---- */
   --space-1: 4px;   --space-2: 8px;   --space-3: 12px;  --space-4: 16px;
@@ -150,11 +151,11 @@
   --section-pad-sm: 96px 0 104px;
 
   /* Aliases da v0.4, para não quebrar folha antiga */
-  --container:     var(--shell);
-  --container-max: var(--shell);
-  --gutter:        var(--pad-x);
+  --container:     var(--shell);  /* @kind spacing */
+  --container-max: var(--shell);  /* @kind spacing */
+  --gutter:        var(--pad-x);  /* @kind spacing */
 
-  --hero-h:   100vh;
+  --hero-h:   100vh;  /* @kind other */
   --hero-min: 700px;
   --hero-max: 915px;
 
@@ -163,14 +164,21 @@
   --bp-lg: 1200px;
 
   /* ---- Forma: escala de quatro raios. O raio único de 4px acabou. ---- */
-  --r-pill:  999px;   /* botão, nav, chip, badge, selo, barra do celular */
-  --r-frame: 28px;    /* moldura de mídia sangrando: herói e CTA final */
-  --r-card:  24px;    /* card, painel, formulário, dropdown, sheet */
-  --r-card-lg: 40px;  /* card grande de mídia: 380px de lado no baralho */
-  --r-media: 20px;    /* foto de projeto, mapa, vídeo dentro de grade */
-  --r-sm:    12px;    /* campo de formulário, item pequeno */
-  --r-nav:   4px;     /* barra de navegação, CTA da nav, hambúrguer — vem da Visuvate */
-  --r-dot:   999px;
+  /* botão, nav, chip, badge, selo, barra do celular */
+  --r-pill:  999px;   /* @kind radius */
+  /* moldura de mídia sangrando: herói e CTA final */
+  --r-frame: 28px;    /* @kind radius */
+  /* card, painel, formulário, dropdown, sheet */
+  --r-card:  24px;    /* @kind radius */
+  /* card grande de mídia: 380px de lado no baralho */
+  --r-card-lg: 40px;  /* @kind radius */
+  /* foto de projeto, mapa, vídeo dentro de grade */
+  --r-media: 20px;    /* @kind radius */
+  /* campo de formulário, item pequeno */
+  --r-sm:    12px;    /* @kind radius */
+  /* barra de navegação, CTA da nav, hambúrguer — vem da Visuvate */
+  --r-nav:   4px;     /* @kind radius */
+  --r-dot:   999px;  /* @kind radius */
   --radius:  var(--r-card);   /* alias da v0.4 */
 
   /* ---- Elevação: continua quase nenhuma em superfície clara. ---- */
@@ -202,26 +210,35 @@
   --tap-min:        48px;
 
   /* ---- Movimento ---- */
-  --ease-out:      cubic-bezier(.16,.84,.24,1);   /* saída de UI */
-  --ease-soft:     cubic-bezier(.22,1,.36,1);     /* a curva assinatura da v0.5 */
-  --ease-bounce:   cubic-bezier(.34,1.56,.64,1);  /* mola do indicador da nav */
-  --ease-editorial:cubic-bezier(.16,1,.3,1);      /* entrada da grade editorial */
-  --dur-bounce:    520ms;
-  --ease-standard: cubic-bezier(.4,0,.2,1);
-  --ease-glide:    cubic-bezier(.25,.1,.25,1);
-  --ease-reveal:   var(--ease-soft);   /* alias da v0.4 */
+  /* saída de UI */
+  --ease-out:      cubic-bezier(.16,.84,.24,1);   /* @kind other */
+  /* a curva assinatura da v0.5 */
+  --ease-soft:     cubic-bezier(.22,1,.36,1);     /* @kind other */
+  /* mola do indicador da nav */
+  --ease-bounce:   cubic-bezier(.34,1.56,.64,1);  /* @kind other */
+  /* entrada da grade editorial */
+  --ease-editorial:cubic-bezier(.16,1,.3,1);      /* @kind other */
+  --dur-bounce:    520ms;  /* @kind other */
+  --ease-standard: cubic-bezier(.4,0,.2,1);  /* @kind other */
+  --ease-glide:    cubic-bezier(.25,.1,.25,1);  /* @kind other */
+  /* alias da v0.4 */
+  --ease-reveal:   var(--ease-soft);   /* @kind other */
 
-  --dur-fast:   150ms;
-  --dur-quick:  240ms;
-  --dur-base:   300ms;
-  --dur-mid:    400ms;
-  --dur-reveal: 800ms;
-  --dur-in:     900ms;   /* entrada na carga */
-  --dur-zoom:   2600ms;  /* zoom lento da foto do herói */
+  --dur-fast:   150ms;  /* @kind other */
+  --dur-quick:  240ms;  /* @kind other */
+  --dur-base:   300ms;  /* @kind other */
+  --dur-mid:    400ms;  /* @kind other */
+  --dur-reveal: 800ms;  /* @kind other */
+  /* entrada na carga */
+  --dur-in:     900ms;   /* @kind other */
+  /* zoom lento da foto do herói */
+  --dur-zoom:   2600ms;  /* @kind other */
 
-  --stagger:      80ms;   /* entre cards */
-  --stagger-word: 62ms;   /* entre palavras do título */
-  --delay-enter:  360ms;
+  /* entre cards */
+  --stagger:      80ms;   /* @kind other */
+  /* entre palavras do título */
+  --stagger-word: 62ms;   /* @kind other */
+  --delay-enter:  360ms;  /* @kind other */
   --blur-enter:   10px;
 
   /* =========================================================================
@@ -270,8 +287,8 @@
   --nav-panel:     var(--white);
   --glass-nav-stuck: rgba(255,255,255,.82);
   --glass-panel:  rgba(255,255,255,.92);
-  --blur-glass:   blur(14px) saturate(1.2);
-  --blur-panel:   blur(20px) saturate(1.1);
+  --blur-glass:   blur(14px) saturate(1.2);  /* @kind other */
+  --blur-panel:   blur(20px) saturate(1.1);  /* @kind other */
 
   /* ---- Ação ---- */
   --action-block:    var(--blue-400);
@@ -287,7 +304,7 @@
   --link-color:  currentColor;
   --link-offset: 3px;
 
-  --focus-ring:   2px solid var(--blue-400);
+  --focus-ring:   2px solid var(--blue-400);  /* @kind other */
   --focus-offset: 3px;
 
   --feedback-success-fg: var(--green-600); --feedback-success-bg: var(--green-50);
@@ -301,9 +318,16 @@
 
 @media (prefers-reduced-motion: reduce) {
   :root {
-    --dur-fast: 0ms; --dur-quick: 0ms; --dur-base: 0ms; --dur-mid: 0ms;
-    --dur-reveal: 0ms; --dur-in: 0ms; --dur-zoom: 0ms;
-    --stagger: 0ms; --stagger-word: 0ms; --delay-enter: 0ms;
+    --dur-fast: 0ms;  /* @kind other */
+    --dur-quick: 0ms;  /* @kind other */
+    --dur-base: 0ms;  /* @kind other */
+    --dur-mid: 0ms;  /* @kind other */
+    --dur-reveal: 0ms;  /* @kind other */
+    --dur-in: 0ms;  /* @kind other */
+    --dur-zoom: 0ms;  /* @kind other */
+    --stagger: 0ms;  /* @kind other */
+    --stagger-word: 0ms;  /* @kind other */
+    --delay-enter: 0ms;  /* @kind other */
     --blur-enter: 0px;
   }
 }
@@ -315,7 +339,7 @@
 @media (max-width: 1024px) {
   :root {
     --nav-h: 62px;
-    --hero-h: auto;
+    --hero-h: auto;  /* @kind other */
   }
 }
 
@@ -328,7 +352,7 @@
     --text-h3:      clamp(24px, 5.4vw, 28px);
     --pad-x: 20px;
     --frame-inset: 10px;
-    --r-frame: 22px;
+    --r-frame: 22px;  /* @kind radius */
     --section-pad:    80px 0 88px;
     --section-pad-sm: 64px 0 72px;
     --space-30: 80px;
@@ -365,7 +389,7 @@
   --nav-bar:         rgba(6,14,22,.9);
   --nav-panel:       #16324A;
 
-  --grain-opacity: .05;
+  --grain-opacity: .05;  /* @kind other */
 
   /* Sobre o escuro o céu passa em 8,58:1 e pode carregar texto. */
   --feedback-info-fg: var(--blue-300);
